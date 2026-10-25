@@ -54,7 +54,10 @@ Por qué así:
 - **Reloj desde el pin 14** y **resistencia entre el pin 25 y 3V3**: si algo consume del 3V3 justo al arrancar, el ESP32 no lee su memoria y se reinicia en bucle (`invalid header: 0xffffffff`).
 - **Pulsador soldado**: las hembras Dupont no agarran sus patas. El código apaga la alarma al primer contacto porque el botón rebota mucho.
 - **Energía**: usar un cargador de celular (5V, 2A) o el powerbank. El USB de la laptop da poca corriente y causa reinicios (`Guru Meditation Error`).
-- **Buzzer a 5V (más fuerte)**: necesita un transistor NPN (BC547, 2N2222 o S8050). El pin 25 no aguanta 5V. Pendiente.
+- **Buzzer y LED a 5 V con transistores (versión final, 25 oct 2026)**: 2 × S8050 (o 2N2222/BC547), 2 × 1 kΩ, 1 × 10 kΩ, 1 × 150 Ω.
+  - Buzzer: a10 (5V) → a33; VCC → b33; 10 kΩ c33→c37 (reemplaza la de 220 Ω); I/O → b37; T1 E=d40 B=d41 C=d42; a37→a42; 1 kΩ c41→c44; a20 (pin 25) → a44; a40 → riel − izquierdo. Quitar a28→a33 y a20→a37.
+  - LED: a19 (pin 26) → a46; 1 kΩ c46→c49; T2 E=d48 B=d49 C=d50; a48 → riel − izquierdo; pata corta → b50; pata larga → b54; 150 Ω c54→c57; e33→e57 (5V).
+  - Firmware: `BUZZER_APAGADO = LOW`. El LED no cambia de lógica.
 
 ### Del protoboard al frente de la caja
 

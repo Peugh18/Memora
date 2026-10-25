@@ -29,7 +29,9 @@ const int PIN_BOTON  = 27;
 const int PIN_SDA    = 33;  // reloj DS3231: 33 y 32 están en la misma fila, junto a 25
 const int PIN_SCL    = 32;
 const int PIN_RTC_VCC = 14;  // el DS3231 se alimenta desde este pin: si va al 3V3, al prender baja el voltaje y el ESP32 no arranca
-const int BUZZER_APAGADO = HIGH;  // el MH-FMD suena con LOW; si se calienta o hace ruido en reposo, probar LOW
+// Con transistor NPN (S8050): pin 25 en ALTO = el transistor baja el I/O del buzzer = suena a 5 V. En reposo, LOW.
+// Sin transistor (buzzer directo al pin y a 3V3) era HIGH: cambiarlo de vuelta si se quita el transistor.
+const int BUZZER_APAGADO = LOW;
 int tonoHz = 2700;               // ajustar: cada buzzer suena más fuerte en una frecuencia distinta
 const unsigned long ALARMA_MAX_MS = 30UL * 60 * 1000;  // igual a la tolerancia del servidor
 const unsigned long RESET_WIFI_MS = 10000;             // mantener el botón 10 s (sin alarma) borra el Wi-Fi
