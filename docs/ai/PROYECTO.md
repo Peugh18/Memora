@@ -34,7 +34,7 @@ Terminar el sistema completo para la presentación: servidor en AWS + app (APK) 
 - `tomas`: 28 caracteres, de 4 en 4 por día empezando el lunes, orden mañana-mediodía-tarde-noche. `1` = hay medicamento.
 - La app **nunca** habla MQTT: llama a la API y el servidor publica.
 - Lógica de negocio en `servidor/app/Services/Tomas.php` (estados de tomas, omitidas, push) y `Pastillero.php` (publicar por MQTT).
-- Hoy (desarrollo) el broker es el público `test.mosquitto.org:1883` sin clave. En AWS será Mosquitto propio con TLS y usuario por pastillero.
+- Producción: `https://memmora.duckdns.org` (API) y `memmora.duckdns.org:8883` (Mosquitto con TLS; usuario = ID del pastillero, clave = la del QR). Despliegue en `despliegue/` (ver su README).
 
 ## Comandos (servidor)
 | Para | Comando (en `servidor/`) |

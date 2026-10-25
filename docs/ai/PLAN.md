@@ -4,7 +4,7 @@
 Pastillero probado. API Laravel con 9 pruebas pasando; el pastillero ya recibe el horario desde la API. App Expo escrita (22 pantallas), compila sin errores de tipos ni lint; falta probarla en el celular con Expo Go.
 
 ## Siguiente paso
-0. **Fase 5 (AWS) primero:** el broker público falla; sin broker propio no se puede probar ni presentar.
+0. Terminar Fase 5: firmware con TLS en el pastillero y prueba completa contra AWS.
 1. Probar la app en el celular (Expo Go) contra la API local. 2. Terminar la Fase 3 (botón físico → tomada; "Ya la tomé" → se calla) cuando la zona Wi-Fi esté estable.
 
 ## Fases
@@ -44,10 +44,13 @@ Pastillero probado. API Laravel con 9 pruebas pasando; el pastillero ya recibe e
 - [ ] Probar con Expo Go en el celular contra la API local (misma red)
 - Criterio: cada botón de `docs/app-botones.md` hace lo que dice
 
-### Fase 5 · AWS
-- [ ] EC2 t4g.micro us-east-2 (ya creada, sin SSH, con SSM). Docker Compose: Caddy + Laravel + worker + scheduler + Mosquitto TLS
-- [ ] DuckDNS `memora.duckdns.org`; puertos 80, 443, 8883
-- [ ] Firmware: `MQTT_HOST` propio, puerto 8883, `WiFiClientSecure`, usuario `MEM-0001` y la clave del QR
+### Fase 5 · AWS — en curso
+- [x] EC2 `i-0ef9b7a94381cc3b8` (t4g.small arm64, us-east-2, IP 3.151.97.85, rol MemoraEc2Profile, SG sg-01c0e8a3f136a780f con 80/443/8883)
+- [x] DuckDNS `memmora.duckdns.org` (doble m) → 3.151.97.85
+- [x] `despliegue/instalar.sh` corrido por Session Manager: web (FrankenPHP + HTTPS), escuchar, tareas, Mosquitto TLS 8883 con usuario por pastillero
+- [x] Verificado: https://memmora.duckdns.org/up 200; broker acepta MEM-0001 con la clave del QR y rechaza otras
+- [ ] Firmware con TLS cargado (`firmware/memora/secreto.h`, fuera de git) y pastillero conectado al broker propio
+- [ ] App apuntando a `https://memmora.duckdns.org` y prueba completa (registro, vincular, botón, "Ya la tomé")
 - [ ] Al terminar la presentación: terminar EC2, borrar disco, liberar IP
 
 ### Fase 6 · Entrega

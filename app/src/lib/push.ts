@@ -1,4 +1,5 @@
-import Constants, { ExecutionEnvironment } from 'expo-constants';
+import { isRunningInExpoGo } from 'expo';
+import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
 import { api } from './api';
@@ -8,7 +9,7 @@ import { api } from './api';
  * Expo Go (Android) ya no trae el módulo de push: ahí no se carga y la app sigue normal. Funciona en la APK.
  */
 export async function registrarPush() {
-  if (Constants.executionEnvironment === ExecutionEnvironment.StoreClient) return;
+  if (isRunningInExpoGo()) return;
   const Notifications = await import('expo-notifications');
   Notifications.setNotificationHandler({
     handleNotification: async () => ({ shouldShowBanner: true, shouldShowList: true, shouldPlaySound: true, shouldSetBadge: false }),

@@ -28,3 +28,9 @@
 ## 2026-10-25 · Broker público caído
 - `test.mosquitto.org` dejó de responder (timeout). La API y el listener ahora lo toleran: `Pastillero` devuelve false y registra el error (la toma igual se confirma; `/pastillero/comando` responde 503 en ~5 s), y `mqtt:escuchar` reintenta cada 5 s. `MQTT_CONNECT_TIMEOUT=5`.
 - 10 pruebas pasan. Conclusión: para la demo hace falta el broker propio en AWS (Fase 5).
+
+## 2026-10-25 · Servidor en AWS
+- Código en GitHub público `Peugh18/Memora` (sin secretos: clave QR, .env, sqlite, `firmware/memora/secreto.h` en .gitignore). Límite de 5 intentos/min al vincular, invitar y cambiar clave (11 pruebas).
+- EC2 ya existía (t4g.small, Ubuntu, nginx de prueba en :80 → el instalador lo apaga). Puertos abiertos desde CloudShell; instalación por Session Manager: OK.
+- Verificado desde la PC: HTTPS válido (Let's Encrypt, cadena hasta ISRG Root X1), API responde, broker 8883 con TLS exige usuario/clave.
+- Para actualizar el servidor: Session Manager → `sudo bash ~/instalar.sh`.
