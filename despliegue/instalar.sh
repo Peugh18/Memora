@@ -30,6 +30,13 @@ if ! command -v docker >/dev/null || ! docker compose version >/dev/null 2>&1; t
   systemctl enable --now docker
 fi
 
+# Un nginx o apache de prueba ocuparía el puerto 80 que necesita Caddy para el certificado
+for web in nginx apache2 httpd; do
+  if systemctl is-active --quiet "$web" 2>/dev/null; then
+    echo "Apagando $web (ocupa el puerto 80)"; systemctl disable --now "$web"
+  fi
+done
+
 paso "3/8 Código"
 if [ -d "$DIR/.git" ]; then git -C "$DIR" pull --ff-only; else git clone "$REPO" "$DIR"; fi
 cd "$DIR/despliegue"
