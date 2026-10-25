@@ -38,7 +38,20 @@ El script pregunta dos cosas (se escriben **ahí**, nunca en el chat ni en GitHu
 
 La primera vez tarda unos 10 minutos. Al final debe abrir `https://memora.duckdns.org/up`.
 
-## 4. Después
+## 4. Apagar de noche y prender al día siguiente (para ahorrar)
+
+En CloudShell (us-east-2). Apagada solo cobra el disco; al prender, AWS le da **otra IP**.
+
+```bash
+# Apagar
+aws ec2 stop-instances --region us-east-2 --instance-ids i-0ef9b7a94381cc3b8
+# Prender y ver la IP nueva
+aws ec2 start-instances --region us-east-2 --instance-ids i-0ef9b7a94381cc3b8 && aws ec2 wait instance-running --region us-east-2 --instance-ids i-0ef9b7a94381cc3b8 && aws ec2 describe-instances --region us-east-2 --instance-ids i-0ef9b7a94381cc3b8 --query "Reservations[0].Instances[0].PublicIpAddress" --output text
+```
+
+Luego poner esa IP en DuckDNS (`memmora` → update ip). Los contenedores arrancan solos.
+
+## 5. Después
 
 - **Actualizar** tras un cambio en GitHub: volver a correr `sudo bash instalar.sh` (conserva datos y claves).
 - **Ver qué pasa**: `cd /opt/memora/despliegue && sudo docker compose logs -f escuchar`
