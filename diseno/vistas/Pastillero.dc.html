@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Pastillero</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0D7385}a:hover{color:#0A4A66}
+::selection{background:#BDE6EE;color:#0E2733}
+.nav{display:flex;align-items:center;background:#FFFFFF;margin:0 12px 14px;border-radius:24px;padding:6px;box-shadow:0 12px 30px -14px rgba(10,74,102,.45)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;text-decoration:none;color:#56707A;font-size:13px;font-weight:600;border-radius:16px}
+.tab.on{color:#0D7385;background:#E6F6FA}
+.tab:focus-visible,.fab:focus-visible{outline:3px solid #0D7385;outline-offset:2px}
+.fab{width:58px;height:58px;border-radius:20px;background:linear-gradient(135deg,#0E7C8E,#0A4A66);color:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:-34px 4px 0;box-shadow:0 14px 24px -10px rgba(10,74,102,.65);flex-shrink:0}
+.fab:hover{color:#FFFFFF}
+.card{background:#FFFFFF;border-radius:22px;padding:16px;box-shadow:0 10px 24px -18px rgba(10,74,102,.5)}
+.grid{display:grid;grid-template-columns:34px repeat(7, minmax(0, 1fr));gap:5px;align-items:center}
+.cell{height:38px;border-radius:12px;font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
+.save{grid-column:1 / -1;height:44px;border:none;border-radius:13px;background:#0D7385;color:#FFFFFF;font:inherit;font-size:16px;font-weight:700;cursor:pointer}
+.save:focus-visible{outline:3px solid #0A4A66;outline-offset:2px}
+.cell:focus-visible{outline:3px solid #0D7385;outline-offset:1px}
+.ic{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center}
+.hr{display:flex;align-items:center;gap:12px;padding:10px 0}
+.hr b{font-size:16px;font-weight:600;flex:1}
+.time{font:inherit;font-size:15px;font-weight:800;color:#0A4A66;background:#E0F4F7;border:none;border-radius:10px;height:40px;padding:0 2px;width:100%;text-align:center}
+.time:focus-visible{outline:3px solid #0D7385;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: linear-gradient(180deg, #DDF1F7 0%, #F3FAFC 34%); color: #0E2733; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column">
+<main style="flex: 1; padding: 22px 20px 16px; display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.6px">Pastillero</h1>
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 22px; background: radial-gradient(130% 140% at 0% 0%, #0E7C8E 0%, #0D7385 45%, #0A4A66 100%); color: #FFFFFF; box-shadow: 0 18px 30px -20px rgba(10,74,102,.75)">
+<span style="width: 44px; height: 44px; border-radius: 14px; background: rgba(255,255,255,.14); display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg></span>
+<span style="flex: 1"><b style="display: block; font-size: 17px">MEM-0001 conectado</b><span role="status" style="font-size: 14px; color: #EAF8FB">{{msgSonido}}</span></span>
+<button type="button" onClick="{{probar}}" style="height: 44px; padding: 0 14px; border: none; border-radius: 13px; background: #FFFFFF; color: #0A4A66; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{txtSonido}}</button>
+</div>
+
+<div class="card" style="display: flex; flex-direction: column; gap: 6px">
+<div class="grid">
+<span></span>
+<sc-for list="{{dias}}" as="d" hint-placeholder-count="7"><span style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 14px; font-weight: {{d.weight}}; color: {{d.color}}"><span style="width: 18px; height: 5px; border-radius: 3px; background: {{d.dot}}"></span>{{d.d}}</span></sc-for>
+</div>
+<sc-for list="{{filas}}" as="f" hint-placeholder-count="4">
+<div class="grid">
+<span class="ic" role="img" aria-label="{{f.franja}}" style="background: {{f.bg}}; color: {{f.fg}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{f.icono}}"/></svg></span>
+<sc-for list="{{f.celdas}}" as="c" hint-placeholder-count="7">
+<span class="cell" role="img" aria-label="{{c.label}}" style="background: {{c.bg}}; color: {{c.fg}}; border: {{c.bd}}">{{c.n}}</span>
+</sc-for>
+</div>
+</sc-for>
+<p style="margin: 6px 0 0; font-size: 14px; color: #4A5F68">El número es cuántas pastillas van en cada compartimento.</p>
+</div>
+
+<div class="card" style="padding: 12px 14px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<label style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #7A5A00"><span style="width: 100%; height: 6px; border-radius: 3px; background: #FDF1C7"></span>Mañana<input class="time" type="time" aria-label="Hora de mañana" defaultValue="08:00"></label>
+<label style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #1F5F94"><span style="width: 100%; height: 6px; border-radius: 3px; background: #DCEEFB"></span>Mediodía<input class="time" type="time" aria-label="Hora de mediodía" defaultValue="13:00"></label>
+<label style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #5B3E9E"><span style="width: 100%; height: 6px; border-radius: 3px; background: #EEE6FB"></span>Tarde<input class="time" type="time" aria-label="Hora de tarde" defaultValue="18:00"></label>
+<label style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #9B2C57"><span style="width: 100%; height: 6px; border-radius: 3px; background: #FCE4EE"></span>Noche<input class="time" type="time" aria-label="Hora de noche" defaultValue="21:00"></label>
+<button class="save" type="button" onClick="{{guardar}}">{{txtGuardar}}</button>
+</div>
+
+<a href="Medicamentos.dc.html" class="card" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #0E2733">
+<span style="width: 42px; height: 42px; border-radius: 13px; background: #D3EEF3; color: #0D7385; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.6 8.6l6.8 6.8"/></svg></span>
+<span style="flex: 1"><b style="display: block; font-size: 17px">Medicamentos</b><span style="font-size: 14px; color: #4A5F68">4 activos</span></span>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A5F68" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+</a>
+</main>
+<nav aria-label="Secciones" class="nav">
+<a class="tab" href="Hoy.dc.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Hoy</a>
+<a class="tab" href="Historial.dc.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-6"/></svg>Historial</a>
+<a class="fab" href="NuevoMedicamento.dc.html" aria-label="Agregar medicamento"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
+<a class="tab on" href="Pastillero.dc.html" aria-current="page"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M9 6v12M15 6v12M3 12h18"/></svg>Pastillero</a>
+<a class="tab" href="Cuidadores.dc.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.8 4.5 4.5"/></svg>Familia</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+const largos = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+const hoy = 3;
+// cada fila del pastillero real tiene su color: amarilla, celeste, lila y rosa
+const franjas = [
+{ franja: 'Mañana', bg: '#FDF1C7', fg: '#7A5A00', lleno: '#FEF6D8', icono: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4', n: [2, 2, 2, 2, 2, 1, 1] },
+{ franja: 'Mediodía', bg: '#DCEEFB', fg: '#1F5F94', lleno: '#E8F3FC', icono: 'M12 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M5.6 4.6l1.4 1.4M18.4 4.6l-1.4 1.4M3 17h18M7 21h10', n: [1, 1, 1, 1, 1, 1, 1] },
+{ franja: 'Tarde', bg: '#EEE6FB', fg: '#5B3E9E', lleno: '#F3EDFC', icono: 'M3 18h18M6 18a6 6 0 0 1 12 0M12 6v3M5.6 10.6l1.8 1.4M18.4 10.6l-1.8 1.4', n: [1, 1, 1, 1, 1, 0, 0] },
+{ franja: 'Noche', bg: '#FCE4EE', fg: '#9B2C57', lleno: '#FDEDF3', icono: 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z', n: [1, 1, 1, 1, 1, 1, 1] },
+];
+
+const sonando = !!(this.state && this.state.sonando);
+const guardado = !!(this.state && this.state.guardado);
+return {
+msgSonido: sonando ? 'Sonando: apágalo aquí o con su botón' : 'En línea · visto hace 1 min',
+txtSonido: sonando ? 'Apagar' : 'Probar sonido',
+probar: () => this.setState({ sonando: !sonando }),
+txtGuardar: guardado ? '✓ Horarios enviados al pastillero' : 'Guardar horarios',
+guardar: () => this.setState({ guardado: true }),
+
+dias: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'].map((d, i) => ({ d, dot: i === hoy ? '#0D7385' : '#D6E5EA', color: i === hoy ? '#0D7385' : '#4A5F68', weight: i === hoy ? 800 : 500 })),
+filas: franjas.map((f) => ({
+...f,
+celdas: f.n.map((n, i) => ({
+n: n ? String(n) : '',
+label: largos[i] + ', ' + f.franja + ': ' + (n ? n + (n === 1 ? ' pastilla' : ' pastillas') : 'vacío'),
+bg: n ? f.lleno : '#FFFFFF',
+fg: f.fg,
+bd: i === hoy ? '2px solid #0D7385' : (n ? '1px solid transparent' : '1.5px dashed #C3D6DC'),
+})),
+})),
+};
+}
+}
+</script>
+</body>
+</html>

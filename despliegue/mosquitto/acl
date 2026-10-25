@@ -1,0 +1,6 @@
+# El servidor (Laravel) ve todos los pastilleros
+user servidor
+topic readwrite memora/#
+
+# Cada pastillero entra con su ID como usuario (MEM-0001) y solo toca memora/MEM-0001/#
+pattern readwrite memora/%u/#

@@ -1,0 +1,17 @@
+# Secretos: nunca al repositorio (el repo es público)
+assets/qr/clave-*.txt
+assets/qr/qr-*.svg
+assets/qr/etiqueta-*
+assets/qr/hoja-qr-*
+assets/qr/vista.png
+.env
+.env.*
+!.env.example
+*.sqlite
+despliegue/secretos/
+
+# Dependencias y compilados
+node_modules/
+vendor/
+.expo/
+firmware/memora/secreto.h

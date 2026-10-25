@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Bienvenida</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0D7385}a:hover{color:#0A4A66}
+::selection{background:#BDE6EE;color:#0E2733}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;height:58px;border-radius:18px;background:linear-gradient(135deg,#0E7C8E,#0D7385 55%,#0A4A66);color:#FFFFFF;font-size:18px;font-weight:700;text-decoration:none;box-shadow:0 14px 26px -12px rgba(10,74,102,.55)}
+.cta:hover{color:#FFFFFF;filter:brightness(1.06)}
+.cta:focus-visible{outline:3px solid #F59E0B;outline-offset:3px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: linear-gradient(180deg, #FFFFFF 0%, #EAF8FB 55%, #CDEFF6 100%); color: #0E2733; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 64px 24px 30px">
+<svg width="390" height="300" viewBox="0 0 390 300" aria-hidden="true" style="position: absolute; left: 0; bottom: 0"><path d="M0 120 C80 70 150 110 210 150 C280 196 340 170 390 130 V300 H0Z" fill="#BFEAF3" fill-opacity="0.6"/><path d="M0 200 C90 150 190 240 290 220 C340 210 370 190 390 180 V300 H0Z" fill="#A9DCF3" fill-opacity="0.65"/></svg>
+<svg width="236" height="64" viewBox="0 0 560 150" role="img" aria-label="Memora" style="position: relative">
+<defs><linearGradient id="pl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#18A7B9"/><stop offset="1" stop-color="#0A4A66"/></linearGradient></defs>
+<g font-family="Onest, sans-serif" font-weight="800" font-size="104" fill="#0A4A66"><text x="6" y="128" textLength="288" lengthAdjust="spacingAndGlyphs">MEM</text><text x="398" y="128" textLength="152" lengthAdjust="spacingAndGlyphs">RA</text></g>
+<circle cx="345" cy="91" r="35" fill="none" stroke="#0E8FA3" stroke-width="15"/>
+<g transform="rotate(-45 345 91)"><path d="M345 80 H333 a11 11 0 0 0 0 22 H345 Z" fill="#FFFFFF" stroke="#0A4A66" stroke-width="3.5"/><path d="M345 80 H357 a11 11 0 0 1 0 22 H345 Z" fill="url(#pl)" stroke="#0A4A66" stroke-width="3.5"/></g>
+<g stroke="#14A0B3" stroke-width="7" stroke-linecap="round"><path d="M345 36 V22"/><path d="M323 42 L314 31"/><path d="M367 42 L376 31"/></g>
+</svg>
+<p style="position: relative; margin: 14px 0 0; font-size: 18px; color: #2C4853; text-align: center">Tus medicamentos, en su momento</p>
+<img src="/_blob/7ff4be832326c354fdf9f11e652472ad" alt="" style="position: relative; width: 210px; height: 210px; margin: 34px 0 0; filter: drop-shadow(0 22px 26px rgba(10,74,102,.22))">
+<div style="position: relative; margin-top: auto; width: 100%; display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; text-align: center; font-size: 26px; line-height: 1.2; font-weight: 800; letter-spacing: -0.5px; color: #0A4A66">Tu pastillero te avisa.<br>Tu familia está tranquila.</h1>
+<a class="cta" href="OnbNombre.dc.html">Crear mi rutina
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<p style="margin: 0; text-align: center; font-size: 16px; color: #0E2733">¿Ya tienes cuenta? <a href="Login.dc.html" style="font-weight: 700; padding: 10px 2px; color: #0A4A66">Iniciar sesión</a></p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

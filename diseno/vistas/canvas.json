@@ -1,0 +1,247 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Bienvenida.dc.html": {
+      "h": 844,
+      "title": "1 · Bienvenida",
+      "w": 390,
+      "x": 0,
+      "y": 1300
+    },
+    "Codigo.dc.html": {
+      "h": 844,
+      "title": "Ingresar código de invitación",
+      "w": 390,
+      "x": 940,
+      "y": 3700
+    },
+    "Cuidadores.dc.html": {
+      "h": 844,
+      "title": "Mi familia",
+      "w": 390,
+      "x": 2350,
+      "y": 2500
+    },
+    "DatosPersonales.dc.html": {
+      "h": 844,
+      "title": "Datos personales",
+      "w": 390,
+      "x": 3290,
+      "y": 2500
+    },
+    "Historial.dc.html": {
+      "h": 844,
+      "title": "Historial",
+      "w": 390,
+      "x": 1880,
+      "y": 2500
+    },
+    "Hoy.dc.html": {
+      "h": 844,
+      "title": "Hoy",
+      "w": 390,
+      "x": 0,
+      "y": 2500
+    },
+    "Listo.dc.html": {
+      "h": 844,
+      "title": "9 · Rutina lista",
+      "w": 390,
+      "x": 3760,
+      "y": 1300
+    },
+    "Login.dc.html": {
+      "h": 844,
+      "title": "Iniciar sesión",
+      "w": 390,
+      "x": 4230,
+      "y": 1300
+    },
+    "Main.dc.html": {
+      "h": 900,
+      "title": "Mapa: cómo se relaciona todo",
+      "w": 1600,
+      "x": 0,
+      "y": 0
+    },
+    "Marca.dc.html": {
+      "h": 1040,
+      "title": "Marca y assets",
+      "w": 1200,
+      "x": 1680,
+      "y": 0
+    },
+    "Medicamentos.dc.html": {
+      "h": 844,
+      "title": "Medicamentos",
+      "w": 390,
+      "x": 940,
+      "y": 2500
+    },
+    "MisPacientes.dc.html": {
+      "h": 844,
+      "title": "Personas que cuido",
+      "w": 390,
+      "x": 0,
+      "y": 3700
+    },
+    "NuevoMedicamento.dc.html": {
+      "h": 844,
+      "title": "Nuevo medicamento",
+      "w": 390,
+      "x": 1410,
+      "y": 2500
+    },
+    "OlvideClave.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Olvidé mi contraseña",
+      "w": 390,
+      "x": 4700,
+      "y": 1300
+    },
+    "OnbCuenta.dc.html": {
+      "h": 844,
+      "title": "7 · Cuenta",
+      "w": 390,
+      "x": 2820,
+      "y": 1300
+    },
+    "OnbHorarios.dc.html": {
+      "h": 844,
+      "title": "5 · Horarios",
+      "w": 390,
+      "x": 1880,
+      "y": 1300
+    },
+    "OnbMedicamento.dc.html": {
+      "h": 844,
+      "title": "6 · Primer medicamento",
+      "w": 390,
+      "x": 2350,
+      "y": 1300
+    },
+    "OnbNombre.dc.html": {
+      "h": 844,
+      "title": "2 · Nombre",
+      "w": 390,
+      "x": 470,
+      "y": 1300
+    },
+    "OnbRol.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "4 · Rol",
+      "w": 390,
+      "x": 1410,
+      "y": 1300
+    },
+    "PacienteDetalle.dc.html": {
+      "h": 844,
+      "title": "Detalle de la persona",
+      "w": 390,
+      "x": 470,
+      "y": 3700
+    },
+    "Pastillero.dc.html": {
+      "h": 844,
+      "title": "Pastillero 7×4",
+      "w": 390,
+      "x": 470,
+      "y": 2500
+    },
+    "Perfil.dc.html": {
+      "h": 844,
+      "title": "Mi perfil y ajustes",
+      "w": 390,
+      "x": 2820,
+      "y": 2500
+    },
+    "Vincular.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "8 · Vincular pastillero",
+      "w": 390,
+      "x": 3290,
+      "y": 1300
+    },
+    "OnbCelular.dc.html": {
+      "w": 390,
+      "h": 844,
+      "y": 1300,
+      "x": 940,
+      "title": "3 · Celular"
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-22T17:30:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "t1": {
+      "kind": "title1",
+      "maxW": 2880,
+      "text": "Memora",
+      "w": 240,
+      "x": 0,
+      "y": -260
+    },
+    "t2": {
+      "kind": "title1",
+      "maxW": 5090,
+      "text": "Crea tu rutina",
+      "w": 240,
+      "x": 0,
+      "y": 1040
+    },
+    "t3": {
+      "kind": "title1",
+      "maxW": 3680,
+      "text": "Paciente",
+      "w": 240,
+      "x": 0,
+      "y": 2240
+    },
+    "t4": {
+      "kind": "title1",
+      "maxW": 1330,
+      "text": "Cuidador",
+      "w": 240,
+      "x": 0,
+      "y": 3440
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Marca.dc.html",
+    "Bienvenida.dc.html",
+    "OnbNombre.dc.html",
+    "OnbCelular.dc.html",
+    "OnbRol.dc.html",
+    "OnbHorarios.dc.html",
+    "OnbMedicamento.dc.html",
+    "OnbCuenta.dc.html",
+    "Vincular.dc.html",
+    "Listo.dc.html",
+    "Login.dc.html",
+    "OlvideClave.dc.html",
+    "Hoy.dc.html",
+    "Pastillero.dc.html",
+    "Medicamentos.dc.html",
+    "NuevoMedicamento.dc.html",
+    "Historial.dc.html",
+    "Cuidadores.dc.html",
+    "Perfil.dc.html",
+    "DatosPersonales.dc.html",
+    "MisPacientes.dc.html",
+    "PacienteDetalle.dc.html",
+    "Codigo.dc.html"
+  ],
+  "pages": [],
+  "title": "Memora: vistas de la app"
+}

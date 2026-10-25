@@ -1,0 +1,53 @@
+# Memora en una sola EC2. Lo arranca instalar.sh; los secretos viven en despliegue/secretos/ (fuera de git).
+services:
+  web:
+    build: ../servidor
+    image: memora-servidor
+    restart: always
+    env_file: secretos/servidor.env
+    environment:
+      SERVER_NAME: ${DOMINIO}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - datos:/app/storage/datos
+
+  escuchar:
+    image: memora-servidor
+    restart: always
+    command: php artisan mqtt:escuchar
+    env_file: secretos/servidor.env
+    volumes:
+      - datos:/app/storage/datos
+    depends_on: [web, mosquitto]
+
+  tareas:
+    image: memora-servidor
+    restart: always
+    command: php artisan schedule:work
+    env_file: secretos/servidor.env
+    volumes:
+      - datos:/app/storage/datos
+    depends_on: [web]
+
+  # Broker MQTT propio: 8883 con TLS hacia afuera (pastilleros); 1883 solo dentro de Docker (la API)
+  mosquitto:
+    image: eclipse-mosquitto:2
+    restart: always
+    ports:
+      - "8883:8883"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mosquitto/acl:/mosquitto/config/acl:ro
+      - ./secretos/mosquitto:/mosquitto/secretos:ro
+      - mosquitto_data:/mosquitto/data
+
+volumes:
+  caddy_data:
+  caddy_config:
+  datos:
+  mosquitto_data:

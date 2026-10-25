@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Olvidé mi contraseña</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0D7385}a:hover{color:#0A4A66}
+::selection{background:#BDE6EE;color:#0E2733}
+.back{width:44px;height:44px;border-radius:14px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;color:#0E2733;box-shadow:0 6px 16px -10px rgba(10,74,102,.45);flex-shrink:0}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;height:58px;width:100%;border:none;border-radius:18px;background:linear-gradient(135deg,#0E7C8E,#0D7385 55%,#0A4A66);color:#FFFFFF;font:inherit;font-size:18px;font-weight:700;text-decoration:none;cursor:pointer;box-shadow:0 14px 26px -12px rgba(10,74,102,.55)}
+.cta:hover{color:#FFFFFF;filter:brightness(1.06)}
+.cta:focus-visible{outline:3px solid #F59E0B;outline-offset:3px}
+.lb{font-size:16px;font-weight:600;color:#4A5F68}
+.in{font:inherit;font-size:19px;font-weight:500;height:58px;padding:0 18px;border:1.5px solid #BCD3DA;border-radius:16px;background:#FFFFFF;color:#0E2733;box-sizing:border-box;width:100%}
+.in:focus{outline:none;border-color:#0D7385;box-shadow:0 0 0 4px #CDEDF3}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 20px 24px 30px; background: linear-gradient(180deg, #E1F3F8 0%, #F3FAFC 40%); color: #0E2733; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; gap: 26px">
+<a class="back" href="Login.dc.html" aria-label="Volver a iniciar sesión"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<span style="width: 72px; height: 72px; border-radius: 24px; background: linear-gradient(135deg, #D3EEF3, #BDE6EE); color: #0D7385; display: flex; align-items: center; justify-content: center"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg></span>
+<sc-if value="{{noEnviado}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h1 style="margin: 0; font-size: 30px; line-height: 1.12; font-weight: 800; letter-spacing: -0.8px">¿Olvidaste tu contraseña?</h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A5F68">Escribe tu correo y te enviaremos un enlace para crear una nueva.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label class="lb" for="correo">Correo</label>
+<input class="in" id="correo" type="email" autocomplete="email" placeholder="tu@correo.com">
+</div>
+<button class="cta" type="button" onClick="{{enviar}}" style="margin-top: auto">Enviar enlace</button>
+</sc-if>
+<sc-if value="{{enviado}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; flex-direction: column; gap: 10px">
+<h1 style="margin: 0; font-size: 30px; line-height: 1.12; font-weight: 800; letter-spacing: -0.8px">Revisa tu correo</h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A5F68">Si tu correo está registrado, te llegará el enlace en unos minutos. Mira también en spam.</p>
+</div>
+<a class="cta" href="Login.dc.html" style="margin-top: auto">Volver a iniciar sesión</a>
+<button type="button" onClick="{{reenviar}}" style="align-self: center; border: none; background: none; font: inherit; font-size: 16px; font-weight: 600; color: #0D7385; padding: 10px; cursor: pointer">Enviar de nuevo</button>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+const enviado = !!(this.state && this.state.enviado);
+return {
+enviado,
+noEnviado: !enviado,
+enviar: () => this.setState({ enviado: true }),
+reenviar: () => this.setState({ enviado: false }),
+};
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" role="img" aria-label="Rutina lista: pastillero con un visto bueno">
+<defs>
+<linearGradient id="caja" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#FFFFFF"/>
+<stop offset="1" stop-color="#E4F5FA"/>
+</linearGradient>
+<linearGradient id="ok" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#18A7B9"/>
+<stop offset="1" stop-color="#0A4A66"/>
+</linearGradient>
+</defs>
+<circle cx="150" cy="128" r="104" fill="#0D7385" fill-opacity="0.07"/>
+<rect x="30" y="54" width="9" height="16" rx="3" fill="#FFB547" transform="rotate(-24 34 62)"/>
+<rect x="250" y="40" width="9" height="16" rx="3" fill="#7FD3E0" transform="rotate(30 254 48)"/>
+<rect x="264" y="150" width="8" height="14" rx="3" fill="#0D7385" transform="rotate(-15 268 157)"/>
+<rect x="20" y="160" width="8" height="14" rx="3" fill="#0E8FA3" transform="rotate(40 24 167)"/>
+<circle cx="70" cy="30" r="5" fill="#FFB547"/>
+<circle cx="232" cy="96" r="4" fill="#0D7385"/>
+<circle cx="58" cy="118" r="3.5" fill="#7FD3E0"/>
+<path d="M226 20l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z" fill="#FFB547"/>
+
+<ellipse cx="150" cy="222" rx="110" ry="8" fill="#0A4A66" fill-opacity="0.12"/>
+<rect x="44" y="120" width="212" height="94" rx="20" fill="#0A4A66" fill-opacity="0.12" transform="translate(0 6)"/>
+<rect x="44" y="120" width="212" height="94" rx="20" fill="url(#caja)" stroke="#D6E5EA"/>
+<g>
+<rect x="56" y="132" width="24" height="21" rx="6" fill="#5B8DEF" fill-opacity="0.55"/><rect x="84" y="132" width="24" height="21" rx="6" fill="#3FBF86" fill-opacity="0.55"/><rect x="112" y="132" width="24" height="21" rx="6" fill="#F2C440" fill-opacity="0.55"/><rect x="140" y="132" width="24" height="21" rx="6" fill="#F59A45" fill-opacity="0.55"/><rect x="168" y="132" width="24" height="21" rx="6" fill="#EE6E8F" fill-opacity="0.55"/><rect x="196" y="132" width="24" height="21" rx="6" fill="#9F7AE0" fill-opacity="0.55"/><rect x="224" y="132" width="24" height="21" rx="6" fill="#2FB3C6" fill-opacity="0.55"/>
+<rect x="56" y="157" width="24" height="21" rx="6" fill="#5B8DEF" fill-opacity="0.8"/><rect x="84" y="157" width="24" height="21" rx="6" fill="#3FBF86" fill-opacity="0.8"/><rect x="112" y="157" width="24" height="21" rx="6" fill="#F2C440" fill-opacity="0.8"/><rect x="140" y="157" width="24" height="21" rx="6" fill="#F59A45" fill-opacity="0.8"/><rect x="168" y="157" width="24" height="21" rx="6" fill="#EE6E8F" fill-opacity="0.8"/><rect x="196" y="157" width="24" height="21" rx="6" fill="#9F7AE0" fill-opacity="0.8"/><rect x="224" y="157" width="24" height="21" rx="6" fill="#2FB3C6" fill-opacity="0.8"/>
+<rect x="56" y="182" width="24" height="21" rx="6" fill="#5B8DEF" fill-opacity="1"/><rect x="84" y="182" width="24" height="21" rx="6" fill="#3FBF86" fill-opacity="1"/><rect x="112" y="182" width="24" height="21" rx="6" fill="#F2C440" fill-opacity="1"/><rect x="140" y="182" width="24" height="21" rx="6" fill="#F59A45" fill-opacity="1"/><rect x="168" y="182" width="24" height="21" rx="6" fill="#EE6E8F" fill-opacity="1"/><rect x="196" y="182" width="24" height="21" rx="6" fill="#9F7AE0" fill-opacity="1"/><rect x="224" y="182" width="24" height="21" rx="6" fill="#2FB3C6" fill-opacity="1"/>
+</g>
+<circle cx="150" cy="70" r="44" fill="#0A4A66" fill-opacity="0.15" transform="translate(0 6)"/>
+<circle cx="150" cy="70" r="44" fill="url(#ok)"/>
+<circle cx="150" cy="70" r="44" fill="none" stroke="#FFFFFF" stroke-width="5"/>
+<path d="M131 71l13 13 25-27" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

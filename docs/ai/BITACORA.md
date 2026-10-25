@@ -1,0 +1,30 @@
+# Memora — Bitácora
+
+## 2026-10-22 a 23 · Pastillero y diseño
+- Plan del sistema, marca (logo con cápsula en la O), 24 pantallas en el canvas de diseño.
+- Armado en protoboard componente por componente. Problemas resueltos: arranque en bucle por carga en 3V3, riel GND cortado, pulsador que rebota, Wi-Fi de 5 GHz.
+- Archivos: `firmware/memora/memora.ino`, `docs/armado-y-pruebas.md`.
+
+## 2026-10-24 · Revisión del sistema, QR y API
+- Firmware: 4 correcciones (botón largo borraba el Wi-Fi, bloqueo de MQTT sin datos, no reconectaba, primer bip perdido). Probado con hardware: alarma, botón, toma sin internet, reconexión.
+- Diseño: corregidas 9 pantallas (Cuenta cortada, botones sin acción, Jorge repetido, 7×3) y agregado "Solo apagar el sonido". Copia en `diseno/vistas/`.
+- QR: `assets/qr/hoja-qr-A4.pdf`, clave en `assets/qr/clave-MEM-0001.txt`.
+- Caja de trupán diseñada (`caja/`) y descartada por costo: se usa un joyero.
+- API Laravel en `servidor/`: modelos, 20 endpoints, worker MQTT, scheduler, push Expo. `php artisan test`: 8 pasan.
+- Pendiente: Fase 3 (probar la API con el pastillero real) y la app.
+
+## 2026-10-24 (tarde) · App Expo y prueba de la API con el pastillero
+- API: corregido registro sin horario y mensajes de validación en español (`lang/es/validation.php`); 9 pruebas pasan.
+- Pastillero recibió el horario publicado por la API ("Horario actualizado"). Prueba del botón pendiente: la zona Wi-Fi del celular se apaga si no hay otro equipo conectado (anotado en armado-y-pruebas).
+- Ojo: abrir el puerto serial desde la PC reinicia el ESP32. Vigilar por MQTT (`mqtt:escuchar`).
+- App en `app/` (Expo SDK 58): 22 pantallas según `diseno/vistas/`. tsc y eslint limpios; el bundle de Android compila.
+- Pendiente: probar en el celular con Expo Go, AWS y APK.
+
+## 2026-10-24 (noche) · Primera prueba de la app en el celular
+- La app abrió en Expo Go. Arreglado: expo-notifications no existe en Expo Go (Android) → se carga solo en la APK (`src/lib/push.ts`).
+- Nombre completo + alias: la API guarda `name` (nombres y apellidos) y `alias` (cómo saludar; si falta, el primer nombre). El saludo largo rompía la pantalla Hoy.
+- 9 pruebas del servidor pasan; tsc y eslint de la app limpios; bundle Android compila.
+
+## 2026-10-25 · Broker público caído
+- `test.mosquitto.org` dejó de responder (timeout). La API y el listener ahora lo toleran: `Pastillero` devuelve false y registra el error (la toma igual se confirma; `/pastillero/comando` responde 503 en ~5 s), y `mqtt:escuchar` reintenta cada 5 s. `MQTT_CONNECT_TIMEOUT=5`.
+- 10 pruebas pasan. Conclusión: para la demo hace falta el broker propio en AWS (Fase 5).

@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "Memora",
+    "slug": "memora",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/memora-icono.png",
+    "scheme": "memora",
+    "userInterfaceStyle": "light",
+    "android": {
+      "package": "pe.memora.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0D7385",
+        "foregroundImage": "./assets/images/memora-icono.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#F3FAFC",
+          "image": "./assets/images/memora-icono.png",
+          "imageWidth": 120
+        }
+      ],
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Memora usa la cámara para leer el QR de tu pastillero.",
+          "barcodeScannerEnabled": true
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#0D7385",
+          "defaultChannel": "default"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

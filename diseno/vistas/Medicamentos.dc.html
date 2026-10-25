@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Medicamentos</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0D7385}a:hover{color:#0A4A66}
+::selection{background:#BDE6EE;color:#0E2733}
+.back{width:44px;height:44px;border-radius:14px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;color:#0E2733;box-shadow:0 6px 16px -10px rgba(10,74,102,.45);flex-shrink:0}
+.nav{display:flex;align-items:center;background:#FFFFFF;margin:0 12px 14px;border-radius:24px;padding:6px;box-shadow:0 12px 30px -14px rgba(10,74,102,.45)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;text-decoration:none;color:#56707A;font-size:13px;font-weight:600;border-radius:16px}
+.tab.on{color:#0D7385;background:#E6F6FA}
+.tab:focus-visible,.fab:focus-visible{outline:3px solid #0D7385;outline-offset:2px}
+.fab{width:58px;height:58px;border-radius:20px;background:linear-gradient(135deg,#0E7C8E,#0A4A66);color:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:-34px 4px 0;box-shadow:0 14px 24px -10px rgba(10,74,102,.65);flex-shrink:0}
+.fab:hover{color:#FFFFFF}
+.med{display:flex;align-items:center;gap:14px;padding:16px;background:#FFFFFF;border-radius:22px;box-shadow:0 10px 24px -18px rgba(10,74,102,.5);text-decoration:none;color:#0E2733}
+.med:hover{color:#0E2733;box-shadow:0 0 0 2px #0D7385,0 10px 24px -18px rgba(10,74,102,.5)}
+.tile{width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.med b{display:block;font-size:18px;font-weight:700}
+.med small{display:block;font-size:14px;color:#4A5F68;margin:2px 0 8px}
+.fr{display:flex;gap:6px}
+.fr span{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;padding:4px 9px;border-radius:999px}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: linear-gradient(180deg, #DDF1F7 0%, #F3FAFC 34%); color: #0E2733; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column">
+<main style="flex: 1; padding: 20px 20px 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 14px">
+<a class="back" href="Pastillero.dc.html" aria-label="Volver al pastillero"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<h1 style="margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px">Medicamentos</h1>
+</div>
+
+<a class="med" href="NuevoMedicamento.dc.html">
+<span class="tile" style="background: #D3EEF3; color: #0D7385"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.6 8.6l6.8 6.8"/></svg></span>
+<span style="flex: 1"><b>Metformina</b><small>850 mg · 1 pastilla · lunes a viernes</small>
+<span class="fr"><span style="background: #FDF1C7; color: #7A5A00">Mañana</span><span style="background: #EEE6FB; color: #5B3E9E">Tarde</span></span></span>
+</a>
+<a class="med" href="NuevoMedicamento.dc.html">
+<span class="tile" style="background: #FDEBD3; color: #B45309"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M6.5 6.5l11 11"/></svg></span>
+<span style="flex: 1"><b>Losartán</b><small>50 mg · 1 pastilla · todos los días</small>
+<span class="fr"><span style="background: #FDF1C7; color: #7A5A00">Mañana</span></span></span>
+</a>
+<a class="med" href="NuevoMedicamento.dc.html">
+<span class="tile" style="background: #FDEBD3; color: #B45309"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M6.5 6.5l11 11"/></svg></span>
+<span style="flex: 1"><b>Vitamina D</b><small>1000 UI · 1 cápsula · todos los días</small>
+<span class="fr"><span style="background: #DCEEFB; color: #1F5F94">Mediodía</span></span></span>
+</a>
+<a class="med" href="NuevoMedicamento.dc.html">
+<span class="tile" style="background: #DCE4F5; color: #2D3F80"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="6"/><path d="M12 6v12"/></svg></span>
+<span style="flex: 1"><b>Atorvastatina</b><small>20 mg · 1 pastilla · todos los días</small>
+<span class="fr"><span style="background: #FCE4EE; color: #9B2C57">Noche</span></span></span>
+</a>
+</main>
+<nav aria-label="Secciones" class="nav">
+<a class="tab" href="Hoy.dc.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Hoy</a>
+<a class="tab" href="Historial.dc.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-6"/></svg>Historial</a>
+<a class="fab" href="NuevoMedicamento.dc.html" aria-label="Agregar medicamento"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
+<a class="tab on" href="Pastillero.dc.html" aria-current="page"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M9 6v12M15 6v12M3 12h18"/></svg>Pastillero</a>
+<a class="tab" href="Cuidadores.dc.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.8 4.5 4.5"/></svg>Familia</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

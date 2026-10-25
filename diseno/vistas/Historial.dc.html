@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Historial</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0D7385}a:hover{color:#0A4A66}
+::selection{background:#BDE6EE;color:#0E2733}
+.nav{display:flex;align-items:center;background:#FFFFFF;margin:0 12px 14px;border-radius:24px;padding:6px;box-shadow:0 12px 30px -14px rgba(10,74,102,.45)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;text-decoration:none;color:#56707A;font-size:13px;font-weight:600;border-radius:16px}
+.tab.on{color:#0D7385;background:#E6F6FA}
+.tab:focus-visible,.fab:focus-visible{outline:3px solid #0D7385;outline-offset:2px}
+.fab{width:58px;height:58px;border-radius:20px;background:linear-gradient(135deg,#0E7C8E,#0A4A66);color:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:-34px 4px 0;box-shadow:0 14px 24px -10px rgba(10,74,102,.65);flex-shrink:0}
+.fab:hover{color:#FFFFFF}
+.seg{flex:1;height:40px;border:none;border-radius:12px;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.card{background:#FFFFFF;border-radius:22px;padding:16px;box-shadow:0 10px 24px -18px rgba(10,74,102,.5)}
+.card h2{margin:0;font-size:17px;font-weight:800}
+.card p{margin:2px 0 0;font-size:14px;color:#4A5F68}
+.col{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:default}
+.stack{display:flex;flex-direction:column-reverse;gap:2px;width:24px}
+.s{height:19px;border-radius:4px}
+.lg{display:flex;align-items:center;gap:6px;font-size:13px;color:#2C4853}
+.lg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.miss{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #EAF2F5}
+.miss:last-child{border-bottom:none}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: linear-gradient(180deg, #DDF1F7 0%, #F3FAFC 34%); color: #0E2733; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column">
+<main style="flex: 1; padding: 22px 20px 12px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<h1 style="margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.6px">Historial</h1>
+<span style="font-size: 15px; font-weight: 700; color: #4A5F68">Esta semana</span>
+</div>
+
+<section class="card" aria-label="Tomas por día esta semana" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: flex-start">
+<div><h2>Tomas por día</h2><p>12 de 14 confirmadas · 86 %</p></div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span class="lg"><i style="background: #0095A8"></i>Confirmada</span>
+<span class="lg"><i style="background: #E08A1E"></i>Sin confirmar</span>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: end; height: 92px; border-bottom: 1px solid #D6E5EA; padding-bottom: 2px">
+<sc-for list="{{dias}}" as="d" hint-placeholder-count="7">
+<div class="col" title="{{d.tip}}">
+<div class="stack">
+<sc-for list="{{d.segs}}" as="c" hint-placeholder-count="4"><span class="s" style="background: {{c.bg}}; box-shadow: {{c.ring}}"></span></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin-top: -4px">
+<sc-for list="{{dias}}" as="d" hint-placeholder-count="7"><span style="text-align: center; font-size: 13px; font-weight: {{d.peso}}; color: {{d.color}}">{{d.d}}</span></sc-for>
+</div>
+</section>
+
+<section class="card" aria-label="Porcentaje confirmado en las últimas 4 semanas" style="display: flex; flex-direction: column; gap: 8px">
+<div><h2>Últimas 4 semanas</h2><p>Porcentaje de tomas confirmadas</p></div>
+<svg width="318" height="122" viewBox="0 0 318 122" role="img" aria-label="Semana 1: 71 %, semana 2: 86 %, semana 3: 90 %, esta semana: 86 %">
+<g stroke="#EAF2F5" stroke-width="1"><path d="M30 10 H310"/><path d="M30 50 H310"/><path d="M30 90 H310"/></g>
+<g font-family="Onest, sans-serif" font-size="11" fill="#56707A"><text x="0" y="14">100</text><text x="6" y="54">80</text><text x="6" y="94">60</text></g>
+<path d="M44 82 L130 52 L216 44 L296 38" fill="none" stroke="#0095A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#0095A8" stroke="#FFFFFF" stroke-width="2">
+<circle cx="44" cy="82" r="5"><title>Semana 1: 71 %</title></circle>
+<circle cx="130" cy="52" r="5"><title>Semana 2: 86 %</title></circle>
+<circle cx="216" cy="44" r="5"><title>Semana 3: 90 %</title></circle>
+<circle cx="296" cy="38" r="6"><title>Esta semana: 86 %</title></circle>
+</g>
+<text x="280" y="24" text-anchor="middle" font-family="Onest, sans-serif" font-size="13" font-weight="800" fill="#0E2733">86 %</text>
+<g font-family="Onest, sans-serif" font-size="12" fill="#4A5F68" text-anchor="middle"><text x="44" y="116">Sem 1</text><text x="130" y="116">Sem 2</text><text x="216" y="116">Sem 3</text><text x="296" y="116">Esta</text></g>
+</svg>
+</section>
+
+<section class="card" aria-label="Tomas sin confirmar" style="padding: 6px 16px">
+<div class="miss"><span style="width: 38px; height: 38px; border-radius: 12px; background: #FDEBD3; color: #B45309; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span style="flex: 1"><b style="display: block; font-size: 16px">Martes · Noche</b><span style="font-size: 13px; color: #4A5F68">Atorvastatina · 21:00</span></span></div>
+<div class="miss"><span style="width: 38px; height: 38px; border-radius: 12px; background: #FDEBD3; color: #B45309; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span style="flex: 1"><b style="display: block; font-size: 16px">Miércoles · Mediodía</b><span style="font-size: 13px; color: #4A5F68">Vitamina D · 13:00</span></span></div>
+</section>
+</main>
+<nav aria-label="Secciones" class="nav">
+<a class="tab" href="Hoy.dc.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Hoy</a>
+<a class="tab on" href="Historial.dc.html" aria-current="page"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-6"/></svg>Historial</a>
+<a class="fab" href="NuevoMedicamento.dc.html" aria-label="Agregar medicamento"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
+<a class="tab" href="Pastillero.dc.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M9 6v12M15 6v12M3 12h18"/></svg>Pastillero</a>
+<a class="tab" href="Cuidadores.dc.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.8 4.5 4.5"/></svg>Familia</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+const largos = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+// por día, de abajo hacia arriba: t = confirmada, o = sin confirmar, . = por venir
+const semana = ['tttt', 'ttto', 'tott', 'tt..', '....', '....', '....'];
+const hoy = 3;
+const color = { t: '#0095A8', o: '#E08A1E', '.': '#EAF2F5' };
+const anillo = { t: 'none', o: 'none', '.': 'inset 0 0 0 1px #D6E5EA' };
+return {
+dias: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'].map((d, i) => {
+const k = semana[i];
+const t = (k.match(/t/g) || []).length, o = (k.match(/o/g) || []).length;
+return {
+d,
+color: i === hoy ? '#0A4A66' : '#4A5F68',
+peso: i === hoy ? 800 : 500,
+tip: largos[i] + ': ' + t + ' confirmadas, ' + o + ' sin confirmar',
+segs: k.split('').map((x) => ({ bg: color[x], ring: anillo[x] })),
+};
+}),
+};
+}
+}
+</script>
+</body>
+</html>

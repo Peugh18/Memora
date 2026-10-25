@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 150" role="img" aria-label="Memora">
+<!-- Texto en Onest ExtraBold: convertir a trazos con Inkscape (Trayecto > Objeto a trayecto) antes de imprimir -->
+<defs>
+<linearGradient id="pastilla" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#18A7B9"/><stop offset="1" stop-color="#0A4A66"/></linearGradient>
+</defs>
+<g font-family="Onest, 'Segoe UI', Arial, sans-serif" font-weight="800" font-size="104" fill="#0A4A66">
+<text x="6" y="128" textLength="288" lengthAdjust="spacingAndGlyphs">MEM</text>
+<text x="398" y="128" textLength="152" lengthAdjust="spacingAndGlyphs">RA</text>
+</g>
+<circle cx="345" cy="91" r="35" fill="none" stroke="#0E8FA3" stroke-width="15"/>
+<g transform="rotate(-45 345 91)">
+<path d="M345 80 H333 a11 11 0 0 0 0 22 H345 Z" fill="#FFFFFF" stroke="#0A4A66" stroke-width="3.5"/>
+<path d="M345 80 H357 a11 11 0 0 1 0 22 H345 Z" fill="url(#pastilla)" stroke="#0A4A66" stroke-width="3.5"/>
+</g>
+<g stroke="#14A0B3" stroke-width="7" stroke-linecap="round" fill="none">
+<path d="M345 36 V22"/>
+<path d="M323 42 L314 31"/>
+<path d="M367 42 L376 31"/>
+</g>
+</svg>

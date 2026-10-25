@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Iniciar sesión</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0D7385}a:hover{color:#0A4A66}
+::selection{background:#BDE6EE;color:#0E2733}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;height:58px;border-radius:18px;background:linear-gradient(135deg,#0E7C8E,#0D7385 55%,#0A4A66);color:#FFFFFF;font-size:18px;font-weight:700;text-decoration:none;box-shadow:0 14px 26px -12px rgba(10,74,102,.55)}
+.cta:hover{color:#FFFFFF;filter:brightness(1.06)}
+.lb{font-size:16px;font-weight:600;color:#4A5F68}
+.in{font:inherit;font-size:19px;font-weight:500;height:58px;padding:0 18px;border:1.5px solid #BCD3DA;border-radius:16px;background:#FFFFFF;color:#0E2733;box-sizing:border-box;width:100%}
+.in:focus{outline:none;border-color:#0D7385;box-shadow:0 0 0 4px #CDEDF3}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F3FAFC; color: #0E2733; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column">
+<div style="height: 250px; padding: 28px 24px; box-sizing: border-box; background: radial-gradient(120% 90% at 15% 0%, #0E7C8E 0%, #0D7385 45%, #0A4A66 100%); display: flex; flex-direction: column; justify-content: space-between">
+<a href="Bienvenida.dc.html" aria-label="Atrás" style="width: 44px; height: 44px; border-radius: 14px; background: rgba(255,255,255,.14); display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 26px">
+<h1 style="margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -0.8px; color: #FFFFFF">Hola de nuevo</h1>
+<p style="margin: 0; font-size: 17px; color: #EAF8FB">Entra para ver tu rutina.</p>
+</div>
+</div>
+<form style="flex: 1; margin-top: -24px; background: #F3FAFC; border-radius: 28px 28px 0 0; padding: 30px 24px 30px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label class="lb" for="correo">Correo</label>
+<input class="in" id="correo" type="email" autocomplete="email" placeholder="tu@correo.com">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label class="lb" for="clave">Contraseña</label>
+<input class="in" id="clave" type="password" autocomplete="current-password">
+<a href="OlvideClave.dc.html" style="align-self: flex-end; font-size: 15px; font-weight: 600; padding: 8px 0">Olvidé mi contraseña</a>
+</div>
+<a class="cta" href="Hoy.dc.html" style="margin-top: auto">Ingresar</a>
+<p style="margin: 0; text-align: center; font-size: 16px; color: #4A5F68">¿Es tu primera vez? <a href="OnbNombre.dc.html" style="font-weight: 700">Crear mi rutina</a></p>
+</form>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

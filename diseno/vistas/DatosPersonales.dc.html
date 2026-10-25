@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Datos personales</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0D7385}a:hover{color:#0A4A66}
+::selection{background:#BDE6EE;color:#0E2733}
+.back{width:44px;height:44px;border-radius:14px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;color:#0E2733;box-shadow:0 6px 16px -10px rgba(10,74,102,.45);flex-shrink:0}
+.cta{display:flex;align-items:center;justify-content:center;height:56px;border-radius:18px;background:linear-gradient(135deg,#0E7C8E,#0D7385 55%,#0A4A66);color:#FFFFFF;font-size:18px;font-weight:700;text-decoration:none;box-shadow:0 14px 26px -12px rgba(10,74,102,.55)}
+.cta:hover{color:#FFFFFF;filter:brightness(1.06)}
+.lb{font-size:15px;font-weight:600;color:#4A5F68}
+.in{font:inherit;font-size:18px;font-weight:500;height:52px;padding:0 16px;border:1.5px solid #BCD3DA;border-radius:14px;background:#FFFFFF;color:#0E2733;box-sizing:border-box;width:100%}
+.in:focus{outline:none;border-color:#0D7385;box-shadow:0 0 0 4px #CDEDF3}
+.f{display:flex;flex-direction:column;gap:6px}
+h2{margin:8px 0 0;font-size:17px;font-weight:800}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 20px 20px 26px; background: linear-gradient(180deg, #DDF1F7 0%, #F3FAFC 34%); color: #0E2733; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 14px; margin-bottom: 6px">
+<a class="back" href="Perfil.dc.html" aria-label="Volver al perfil"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<h1 style="margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px">Datos personales</h1>
+</div>
+<form style="flex: 1; display: flex; flex-direction: column; gap: 12px">
+<div class="f"><label class="lb" for="nombre">Nombre</label><input class="in" id="nombre" autocomplete="name" defaultValue="Rosa Guevara"></div>
+<div class="f"><label class="lb" for="cel">Celular</label>
+<div style="display: flex; gap: 8px"><span style="display: flex; align-items: center; height: 52px; padding: 0 12px; border-radius: 14px; background: #E0F4F7; color: #0A4A66; font-size: 17px; font-weight: 700">+51</span><input class="in" id="cel" type="tel" inputmode="tel" autocomplete="tel-national" defaultValue="987 654 321"></div>
+<label style="display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; min-height: 40px; cursor: pointer"><input type="checkbox" defaultChecked="{{si}}" style="width: 22px; height: 22px; accent-color: #0D7385; margin: 0">Este número tiene WhatsApp</label>
+<span style="font-size: 13px; color: #4A5F68">Tu familia lo ve para llamarte o escribirte.</span></div>
+<div class="f"><label class="lb" for="correo">Correo</label><input class="in" id="correo" type="email" autocomplete="email" defaultValue="rosa@correo.com"></div>
+<h2 id="clave">Cambiar contraseña</h2>
+<div class="f"><label class="lb" for="actual">Contraseña actual</label><input class="in" id="actual" type="password" autocomplete="current-password"></div>
+<div class="f"><label class="lb" for="nueva">Nueva contraseña</label><input class="in" id="nueva" type="password" autocomplete="new-password" aria-describedby="nueva-ayuda"><span id="nueva-ayuda" style="font-size: 13px; color: #4A5F68">Mínimo 8 caracteres.</span></div>
+<a class="cta" href="Perfil.dc.html" style="margin-top: auto">Guardar cambios</a>
+</form>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+return { si: true };
+}
+}
+</script>
+</body>
+</html>

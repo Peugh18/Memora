@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Crea tu rutina: rol</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0D7385}a:hover{color:#0A4A66}
+::selection{background:#BDE6EE;color:#0E2733}
+.back{width:44px;height:44px;border-radius:14px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;color:#0E2733;box-shadow:0 6px 16px -10px rgba(10,74,102,.45);flex-shrink:0}
+.seg{height:6px;border-radius:3px;background:#D6E5EA}
+.seg.on{background:#0D7385}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;height:58px;border-radius:18px;background:linear-gradient(135deg,#0E7C8E,#0D7385 55%,#0A4A66);color:#FFFFFF;font-size:18px;font-weight:700;text-decoration:none;box-shadow:0 14px 26px -12px rgba(10,74,102,.55)}
+.cta:hover{color:#FFFFFF;filter:brightness(1.06)}
+.op{display:flex;align-items:center;gap:14px;padding:16px;background:#FFFFFF;border:2px solid transparent;border-radius:20px;box-shadow:0 10px 24px -16px rgba(10,74,102,.45);cursor:pointer}
+.op.sel{border-color:#0D7385;background:#F0F9FB}
+.tile{width:54px;height:54px;border-radius:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.op b{display:block;font-size:18px;font-weight:700}
+.op small{display:block;font-size:15px;line-height:1.4;color:#4A5F68;margin-top:2px}
+.op input{width:22px;height:22px;accent-color:#0D7385;margin:0 0 0 auto;flex-shrink:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 20px 24px 30px; background: linear-gradient(180deg, #E1F3F8 0%, #F3FAFC 40%); color: #0E2733; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; align-items: center; gap: 14px">
+<a class="back" href="OnbCelular.dc.html" aria-label="Atrás"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<div role="progressbar" aria-label="Paso 3 de 7" aria-valuemin="1" aria-valuemax="7" aria-valuenow="3" style="flex: 1; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 12px">
+<h1 style="margin: 0; font-size: 32px; line-height: 1.12; font-weight: 800; letter-spacing: -0.8px">Hola, Rosa. ¿Cómo usarás Memora?</h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A5F68">Puedes cambiarlo cuando quieras.</p>
+</div>
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<legend style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Cómo usarás Memora</legend>
+<label class="{{clases.toma}}">
+<span class="tile" style="background: #D3EEF3; color: #0D7385"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.6 8.6l6.8 6.8"/></svg></span>
+<span><b>Tomo medicamentos</b><small>Recibo avisos y confirmo mis tomas.</small></span>
+<input type="radio" name="rol" defaultChecked="{{si}}" onChange="{{elegir.toma}}">
+</label>
+<label class="{{clases.cuida}}">
+<span class="tile" style="background: #FDEBD3; color: #B45309"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span>
+<span><b>Cuido a alguien</b><small>Veo si mi familiar tomó su medicación.</small></span>
+<input type="radio" name="rol" onChange="{{elegir.cuida}}">
+</label>
+<label class="{{clases.ambos}}">
+<span class="tile" style="background: #E3EAF8; color: #2D58A6"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.8 4.5 4.5"/></svg></span>
+<span><b>Las dos cosas</b><small>Tengo mi rutina y también cuido a alguien.</small></span>
+<input type="radio" name="rol" onChange="{{elegir.ambos}}">
+</label>
+</fieldset>
+<a class="cta" href="{{siguiente}}" style="margin-top: auto">Continuar</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+const rol = (this.state && this.state.rol) || 'toma';
+const clase = (r) => (r === rol ? 'op sel' : 'op');
+return {
+si: true,
+clases: { toma: clase('toma'), cuida: clase('cuida'), ambos: clase('ambos') },
+elegir: { toma: () => this.setState({ rol: 'toma' }), cuida: () => this.setState({ rol: 'cuida' }), ambos: () => this.setState({ rol: 'ambos' }) },
+// solo cuidador: pide el código de invitación en vez de armar una rutina propia
+siguiente: rol === 'cuida' ? 'OnbCuenta.dc.html' : 'OnbHorarios.dc.html',
+};
+}
+}
+</script>
+</body>
+</html>

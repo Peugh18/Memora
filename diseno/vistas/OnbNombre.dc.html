@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Crea tu rutina: nombre</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0D7385}a:hover{color:#0A4A66}
+::selection{background:#BDE6EE;color:#0E2733}
+.back{width:44px;height:44px;border-radius:14px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;color:#0E2733;box-shadow:0 6px 16px -10px rgba(10,74,102,.45);flex-shrink:0}
+.seg{height:6px;border-radius:3px;background:#D6E5EA}
+.seg.on{background:#0D7385}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;height:58px;border-radius:18px;background:linear-gradient(135deg,#0E7C8E,#0D7385 55%,#0A4A66);color:#FFFFFF;font-size:18px;font-weight:700;text-decoration:none;box-shadow:0 14px 26px -12px rgba(10,74,102,.55)}
+.cta:hover{color:#FFFFFF;filter:brightness(1.06)}
+.big{font:inherit;font-size:24px;font-weight:600;height:68px;padding:0 20px;border:2px solid #0D7385;border-radius:18px;background:#FFFFFF;color:#0E2733;box-sizing:border-box;width:100%;box-shadow:0 0 0 5px #CDEDF3}
+.big:focus{outline:none}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 20px 24px 30px; background: linear-gradient(180deg, #E1F3F8 0%, #F3FAFC 40%); color: #0E2733; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; align-items: center; gap: 14px">
+<a class="back" href="Bienvenida.dc.html" aria-label="Atrás"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<div role="progressbar" aria-label="Paso 1 de 7" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" style="flex: 1; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px"><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 12px">
+<h1 style="margin: 0; font-size: 32px; line-height: 1.12; font-weight: 800; letter-spacing: -0.8px">¿Cómo te llamamos?</h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A5F68">Así te saludará Memora cada día.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<label for="nombre" style="font-size: 16px; font-weight: 600; color: #4A5F68">Tu nombre</label>
+<input class="big" id="nombre" autocomplete="given-name" defaultValue="Rosa">
+</div>
+<a class="cta" href="OnbCelular.dc.html" style="margin-top: auto">Continuar</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
