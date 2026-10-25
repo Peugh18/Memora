@@ -1,9 +1,14 @@
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
+import { AppState } from 'react-native';
 
 import { api } from './api';
 
-/** Carga una ruta de la API cada vez que la pantalla aparece. `cada` (ms) la vuelve a pedir sola. */
+/**
+ * Carga una ruta de la API cuando la pantalla aparece y cuando la app vuelve del fondo.
+ * `cada` (ms) la vuelve a pedir sola mientras la pantalla está a la vista.
+ * ponytail: consulta periódica en vez de websockets; 5 s alcanza para ver el botón del pastillero casi al instante.
+ */
 export function useDatos<T>(ruta: string, cada?: number) {
   const [datos, setDatos] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -20,9 +25,12 @@ export function useDatos<T>(ruta: string, cada?: number) {
   useFocusEffect(
     useCallback(() => {
       cargar();
-      if (!cada) return;
-      const t = setInterval(cargar, cada);
-      return () => clearInterval(t);
+      const alVolver = AppState.addEventListener('change', (estado) => estado === 'active' && cargar());
+      const t = cada ? setInterval(cargar, cada) : undefined;
+      return () => {
+        alVolver.remove();
+        if (t) clearInterval(t);
+      };
     }, [cargar, cada]),
   );
 

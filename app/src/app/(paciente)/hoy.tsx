@@ -25,7 +25,7 @@ function pildora(t: Toma) {
 
 export default function Hoy() {
   const { usuario } = useSesion();
-  const { datos, error, cargar, setDatos } = useDatos<DatosHoy>('/pacientes/yo/hoy', 15000);
+  const { datos, error, cargar, setDatos } = useDatos<DatosHoy>('/pacientes/yo/hoy', 5000);
   const [silenciada, setSilenciada] = useState<string | null>(null);
   const [trabajando, setTrabajando] = useState(false);
   const [aviso, setAviso] = useState<string | null>(null);

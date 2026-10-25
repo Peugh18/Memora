@@ -21,7 +21,7 @@ export type Persona = {
 
 export default function Personas() {
   const { usuario } = useSesion();
-  const { datos, error } = useDatos<Persona[]>('/personas', 20000);
+  const { datos, error } = useDatos<Persona[]>('/personas', 5000);
   const alertas = datos?.filter((p) => p.omitida) ?? [];
 
   return (

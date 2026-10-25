@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { api } from '@/lib/api';
+import { useSesion } from '@/lib/sesion';
 import { useDatos } from '@/lib/useDatos';
 import { C, DIAS, DIAS_LARGOS, F, FRANJAS } from '@/lib/tema';
 import { SelectorHora } from './hora';
@@ -17,7 +18,8 @@ type Datos = {
 
 /** Cuadrícula 7 × 4 igual al pastillero físico, horas y prueba de sonido. `paciente` = "yo" o el id de quien cuido. */
 export function PastilleroVista({ paciente, puedeEditar = true }: { paciente: string; puedeEditar?: boolean }) {
-  const { datos, error, cargar } = useDatos<Datos>(`/pacientes/${paciente}/pastillero`, 20000);
+  const { datos, error, cargar } = useDatos<Datos>(`/pacientes/${paciente}/pastillero`, 5000);
+  const { refrescar } = useSesion();
   const [editado, setHorario] = useState<Record<string, string> | null>(null); // null = sin cambios: se muestra lo del servidor
   const [sonando, setSonando] = useState(false);
   const [guardado, setGuardado] = useState(false);
@@ -48,7 +50,8 @@ export function PastilleroVista({ paciente, puedeEditar = true }: { paciente: st
   const guardar = () => correr(async () => {
     await api(`/pacientes/${paciente}/horario`, { method: 'PUT', body: horario });
     setGuardado(true);
-    cargar();
+    setHorario(null); // ya no hay cambios sin guardar: se muestra lo que tiene el servidor
+    await Promise.all([cargar(), refrescar()]);
   });
 
   const p = datos.pastillero;

@@ -19,7 +19,7 @@ const ESTADO: Record<string, [string, string, string]> = {
 
 export default function PersonaDetalle() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const hoy = useDatos<Hoy>(`/pacientes/${id}/hoy`, 20000);
+  const hoy = useDatos<Hoy>(`/pacientes/${id}/hoy`, 5000);
   const hist = useDatos<{ semana: Dia[] }>(`/pacientes/${id}/historial`);
   const personas = useDatos<Persona[]>('/personas');
   const p = personas.datos?.find((x) => String(x.id) === id);
