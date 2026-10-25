@@ -34,3 +34,8 @@
 - EC2 ya existía (t4g.small, Ubuntu, nginx de prueba en :80 → el instalador lo apaga). Puertos abiertos desde CloudShell; instalación por Session Manager: OK.
 - Verificado desde la PC: HTTPS válido (Let's Encrypt, cadena hasta ISRG Root X1), API responde, broker 8883 con TLS exige usuario/clave.
 - Para actualizar el servidor: Session Manager → `sudo bash ~/instalar.sh`.
+
+## 2026-10-24 (21:45) · Prueba de punta a punta contra AWS ✅
+- Pastillero con firmware TLS conectado a Mosquitto propio por el Wi-Fi de casa. App (Expo Go) contra https://memmora.duckdns.org: cuenta nueva, vinculado con el QR, horario de noche 21:45 → sonó, evento `alarma` llegó al broker, botón físico → la app mostró "Tomada".
+- App: refresco cada 5 s y al volver del fondo; tras guardar horarios se refresca el perfil.
+- Pendiente de hardware: buzzer a 5 V con NPN S8050 + 1 kΩ (base) + 10 kΩ (I/O a 5 V); al montarlo, invertir `BUZZER_APAGADO`. Alimentación recomendada: cargador de pared 5 V 2 A.

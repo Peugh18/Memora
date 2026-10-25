@@ -4,7 +4,7 @@
 Pastillero probado. API Laravel con 9 pruebas pasando; el pastillero ya recibe el horario desde la API. App Expo escrita (22 pantallas), compila sin errores de tipos ni lint; falta probarla en el celular con Expo Go.
 
 ## Siguiente paso
-0. Terminar Fase 5: firmware con TLS en el pastillero y prueba completa contra AWS.
+0. Probar el rol cuidador (segundo celular) y luego Fase 6: APK con EAS + Firebase para push.
 1. Probar la app en el celular (Expo Go) contra la API local. 2. Terminar la Fase 3 (botón físico → tomada; "Ya la tomé" → se calla) cuando la zona Wi-Fi esté estable.
 
 ## Fases
@@ -31,7 +31,7 @@ Pastillero probado. API Laravel con 9 pruebas pasando; el pastillero ya recibe e
 ### Fase 3 · Prueba local con hardware
 - [x] `php artisan migrate`, `pastillero:crear MEM-0001 <clave>`, `serve`, `mqtt:escuchar`
 - [x] Registrar con curl, vincular → el ESP32 imprime "Horario actualizado" (horario publicado por la API)
-- [ ] Botón físico → la toma queda `tomada` en `GET /api/pacientes/yo/hoy`
+- [x] Botón físico → la toma queda `tomada` (probado ya contra AWS)
 - [ ] `POST /api/tomas/{franja}` → el ESP32 se calla
 - Criterio: los 3 caminos funcionan con el pastillero real
 
@@ -49,8 +49,9 @@ Pastillero probado. API Laravel con 9 pruebas pasando; el pastillero ya recibe e
 - [x] DuckDNS `memmora.duckdns.org` (doble m) → 3.151.97.85
 - [x] `despliegue/instalar.sh` corrido por Session Manager: web (FrankenPHP + HTTPS), escuchar, tareas, Mosquitto TLS 8883 con usuario por pastillero
 - [x] Verificado: https://memmora.duckdns.org/up 200; broker acepta MEM-0001 con la clave del QR y rechaza otras
-- [ ] Firmware con TLS cargado (`firmware/memora/secreto.h`, fuera de git) y pastillero conectado al broker propio
-- [ ] App apuntando a `https://memmora.duckdns.org` y prueba completa (registro, vincular, botón, "Ya la tomé")
+- [x] Firmware con TLS cargado (`firmware/memora/secreto.h`, fuera de git) y pastillero conectado al broker propio (Wi-Fi de casa "Peugu")
+- [x] App apuntando a `https://memmora.duckdns.org`: registro, vincular con QR, horario → pastillero, suena a la hora, botón físico → "Tomada" en la app (2026-10-24 21:45)
+- [ ] Probar rol cuidador con un segundo celular
 - [ ] Al terminar la presentación: terminar EC2, borrar disco, liberar IP
 
 ### Fase 6 · Entrega
