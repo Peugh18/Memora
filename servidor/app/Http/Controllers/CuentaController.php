@@ -20,7 +20,7 @@ class CuentaController extends Controller
             'apellido' => ['required', 'string', 'max:60'],
             'alias' => ['nullable', 'string', 'max:30'],
             'email' => ['required', 'email', 'max:120', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string', 'min:8', 'max:72'], // bcrypt solo usa 72 bytes; evita cuerpos gigantes
             'celular' => ['nullable', 'digits:9'],
             'tiene_whatsapp' => ['boolean'],
             'rol' => ['required', Rule::in(['toma', 'cuida', 'ambos'])],
@@ -54,7 +54,7 @@ class CuentaController extends Controller
 
     public function login(Request $request): array
     {
-        $datos = $request->validate(['email' => ['required', 'email'], 'password' => ['required', 'string']]);
+        $datos = $request->validate(['email' => ['required', 'email', 'max:120'], 'password' => ['required', 'string', 'max:72']]);
         $user = User::where('email', $datos['email'])->first();
         if (! $user || ! Hash::check($datos['password'], $user->password)) {
             throw ValidationException::withMessages(['email' => 'El correo o la contraseña no coinciden.']);
@@ -109,7 +109,7 @@ class CuentaController extends Controller
 
     public function clave(Request $request): array
     {
-        $datos = $request->validate(['actual' => ['required', 'current_password'], 'nueva' => ['required', 'string', 'min:8']]);
+        $datos = $request->validate(['actual' => ['required', 'string', 'max:72', 'current_password'], 'nueva' => ['required', 'string', 'min:8', 'max:72']]);
         $request->user()->update(['password' => $datos['nueva']]);
 
         return ['ok' => true];

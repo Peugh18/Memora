@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [CuentaController::class, 'logout']);
     Route::get('yo', [CuentaController::class, 'yo']);
     Route::patch('yo', [CuentaController::class, 'actualizar']);
-    Route::put('yo/clave', [CuentaController::class, 'clave']);
+    Route::put('yo/clave', [CuentaController::class, 'clave'])->middleware('throttle:5,1');
 
     // {paciente} = "yo" o el id de alguien que cuido
     Route::prefix('pacientes/{paciente}')->controller(RutinaController::class)->group(function () {
@@ -31,7 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::controller(PastilleroController::class)->group(function () {
-        Route::post('pastillero/vincular', 'vincular');
+        // 5 intentos por minuto: la clave del QR y el código de invitación no se pueden adivinar probando
+        Route::post('pastillero/vincular', 'vincular')->middleware('throttle:5,1');
         Route::post('pastillero/comando', 'comando');
         Route::post('tomas/{franja}', 'tomada');
         Route::delete('tomas/{franja}', 'deshacer');
@@ -41,7 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('familia', 'index');
         Route::patch('familia/{vinculo}', 'permiso');
         Route::delete('familia/{vinculo}', 'quitar');
-        Route::post('invitaciones', 'unirse');
+        Route::post('invitaciones', 'unirse')->middleware('throttle:5,1');
         Route::get('personas', 'personas');
     });
 });

@@ -159,6 +159,17 @@ class MemoraTest extends TestCase
             ->assertStatus(503)->assertJson(['message' => 'No pudimos llegar al pastillero ahora. Apágalo con su botón.']);
     }
 
+    public function test_no_se_puede_adivinar_la_clave_del_qr_probando(): void
+    {
+        $token = $this->registrar()['token'];
+        Device::create(['id' => 'MEM-0001', 'clave_hash' => Hash::make('K7Q9PX')]);
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->como($token)->postJson('/api/pastillero/vincular', ['codigo' => "MEM-0001-MALA0$i"])->assertUnprocessable();
+        }
+        $this->como($token)->postJson('/api/pastillero/vincular', ['codigo' => 'MEM-0001-K7Q9PX'])->assertTooManyRequests();
+    }
+
     public function test_un_medicamento_nuevo_cambia_el_horario_del_pastillero(): void
     {
         $token = $this->registrar()['token'];
