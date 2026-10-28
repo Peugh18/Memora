@@ -78,7 +78,6 @@ class CuentaController extends Controller
         $email = $request->validate(['email' => ['required', 'email', 'max:120']])['email'];
         if (User::where('email', $email)->exists()) {
             $codigo = (string) random_int(100000, 999999);
-            RateLimiter::clear('restablecer:'.$email);
             DB::table('password_reset_tokens')->updateOrInsert(['email' => $email], ['token' => Hash::make($codigo), 'created_at' => now()]);
             Mail::raw("Tu código para crear una contraseña nueva en Memora es: $codigo
 
@@ -96,18 +95,19 @@ Vence en 15 minutos. Si no lo pediste, ignora este correo.",
             'codigo' => ['required', 'digits:6'],
             'password' => ['required', 'string', 'min:8', 'max:72'],
         ]);
+        // Cuenta el intento antes de revisar (evita pedidos en paralelo). Máx. 5 por correo cada 15 min, desde cualquier IP
+        // y aunque pidan códigos nuevos; al pasarse se borra el código.
+        if (RateLimiter::hit('restablecer:'.$datos['email'], 900) > 5) {
+            DB::table('password_reset_tokens')->where('email', $datos['email'])->delete();
+            throw ValidationException::withMessages(['codigo' => 'Demasiados intentos. Espera 15 minutos y pide un código nuevo.']);
+        }
         $fila = DB::table('password_reset_tokens')->where('email', $datos['email'])->first();
         $user = User::where('email', $datos['email'])->first();
         if (! $fila || ! $user || now()->subMinutes(15)->gt($fila->created_at) || ! Hash::check($datos['codigo'], $fila->token)) {
-            // 5 fallos por correo (desde cualquier IP) borran el código: hay que pedir otro
-            if (RateLimiter::hit('restablecer:'.$datos['email'], 900) >= 5) {
-                DB::table('password_reset_tokens')->where('email', $datos['email'])->delete();
-            }
             throw ValidationException::withMessages(['codigo' => 'El código no es correcto o ya venció. Pide uno nuevo.']);
         }
 
         RateLimiter::clear('restablecer:'.$datos['email']);
-
         DB::table('password_reset_tokens')->where('email', $datos['email'])->delete();
         $user->tokens()->delete(); // cierra la sesión en los otros celulares
         $user->update(['password' => $datos['password']]);
