@@ -1,5 +1,16 @@
 # Memora — Bitácora
 
+## 2026-10-28 · Olvidé mi contraseña
+- Fallaba: con un correo registrado la API daba 500 (`Route [password.reset] not defined`, Laravel quería armar un enlace web) y el correo estaba en `MAIL_MAILER=log`, así que nunca salía.
+- Ahora: `POST /api/clave/olvido` manda un código de 6 dígitos (guardado con hash en `password_reset_tokens`, vence en 15 min, un solo uso) y `POST /api/clave/restablecer` cambia la clave, cierra las otras sesiones y entra. Límite 5/min. Ojo: los `throttle` sin nombre comparten contador por IP.
+- App: `olvide.tsx` pide correo → código + contraseña nueva. 12 pruebas pasan; tsc y eslint limpios.
+- Correo: Gmail SMTP con contraseña de aplicación; `instalar.sh` la pide (oculta) y la guarda en `secretos/servidor.env`. Falta: push, correr el instalador en la EC2 y nuevo APK.
+
+## 2026-10-28 · Manual de usuario y APK
+- Manual en `docs/manual/Manual-de-usuario-Memora.pdf` (17 páginas, 14 secciones), generado con `python generar_manual.py` desde `docs/manual/img/` (capturas del diseño publicado, no de la app compilada).
+- Ojo: dos pantallas del diseño difieren de la app real (Nombre pide un solo campo; Pastillero usa cajas de hora en vez de −/+). El texto describe la app real.
+- APK EAS listo (build 74917899…, perfil preview, apunta a AWS); Firebase FCM V1 cargado en EAS. Push y rol cuidador aún sin probar en el APK.
+
 ## 2026-10-25 · Contexto de Claude y estado reconciliado
 - Se identificó la carpeta activa del chat «Memora: planificación del sistema»: `D:\TiomiguelonGgs\Desktop\Memora`; `Documents\MEMORA` es otra versión (React Native 7×3) y no corresponde a esta conversación.
 - Leídos AGENTS/CLAUDE, memoria de Claude, PROYECTO/PLAN/BITACORA/DECISIONES, especificación del producto, botones, armado, firmware, app, servidor, despliegue y el historial del chat.

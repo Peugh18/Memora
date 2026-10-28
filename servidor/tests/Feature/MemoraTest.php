@@ -181,4 +181,47 @@ class MemoraTest extends TestCase
 
         $this->assertSame(str_repeat('1011', 7), User::first()->load('medications')->tomas());
     }
+
+    public function test_olvide_mi_clave_manda_un_codigo_por_correo_y_permite_una_nueva(): void
+    {
+        $this->registrar();
+        $this->postJson('/api/clave/olvido', ['email' => 'nadie@correo.com'])->assertOk(); // no revela si existe
+        $this->postJson('/api/clave/olvido', ['email' => 'rosa@correo.com'])->assertOk();
+
+        $correos = app('mailer')->getSymfonyTransport()->messages();
+        $this->assertCount(1, $correos);
+        preg_match('/(\d{6})/', $correos[0]->getOriginalMessage()->getSubject(), $m);
+
+        $this->postJson('/api/clave/restablecer', ['email' => 'rosa@correo.com', 'codigo' => '000000', 'password' => 'nueva-clave-1'])
+            ->assertUnprocessable();
+        $this->postJson('/api/clave/restablecer', ['email' => 'rosa@correo.com', 'codigo' => $m[1], 'password' => 'nueva-clave-1'])
+            ->assertOk()->assertJsonStructure(['token']);
+        $this->postJson('/api/login', ['email' => 'rosa@correo.com', 'password' => 'nueva-clave-1'])->assertOk();
+
+        // el código sirve una sola vez y vence a los 15 minutos (1 min después: el límite por IP es compartido)
+        $this->travel(1)->minutes();
+        $this->postJson('/api/clave/restablecer', ['email' => 'rosa@correo.com', 'codigo' => $m[1], 'password' => 'otra-clave-2'])
+            ->assertUnprocessable();
+        $this->postJson('/api/clave/olvido', ['email' => 'rosa@correo.com']);
+        preg_match('/(\d{6})/', app('mailer')->getSymfonyTransport()->messages()[1]->getOriginalMessage()->getSubject(), $m);
+        $this->travel(16)->minutes();
+        $this->postJson('/api/clave/restablecer', ['email' => 'rosa@correo.com', 'codigo' => $m[1], 'password' => 'otra-clave-2'])
+            ->assertUnprocessable();
+    }
+
+    public function test_cinco_codigos_malos_borran_el_codigo_aunque_cambie_la_ip(): void
+    {
+        $this->registrar();
+        $this->postJson('/api/clave/olvido', ['email' => 'rosa@correo.com']);
+        preg_match('/(\d{6})/', app('mailer')->getSymfonyTransport()->messages()[0]->getOriginalMessage()->getSubject(), $m);
+        $malo = $m[1] === '111111' ? '222222' : '111111';
+        foreach (range(1, 5) as $i) {
+            $this->withServerVariables(['REMOTE_ADDR' => "10.0.0.$i"])
+                ->postJson('/api/clave/restablecer', ['email' => 'rosa@correo.com', 'codigo' => $malo, 'password' => 'nueva-clave-1'])
+                ->assertUnprocessable();
+        }
+        $this->withServerVariables(['REMOTE_ADDR' => '10.0.0.9'])
+            ->postJson('/api/clave/restablecer', ['email' => 'rosa@correo.com', 'codigo' => $m[1], 'password' => 'nueva-clave-1'])
+            ->assertUnprocessable();
+    }
 }

@@ -12,6 +12,9 @@ Route::middleware('throttle:10,1')->group(function () {
     Route::post('clave/olvido', [CuentaController::class, 'olvido']);
 });
 
+// 5 intentos por minuto: el código de 6 dígitos no se puede adivinar probando
+Route::post('clave/restablecer', [CuentaController::class, 'restablecer'])->middleware('throttle:5,1');
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [CuentaController::class, 'logout']);
     Route::get('yo', [CuentaController::class, 'yo']);

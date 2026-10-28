@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -70,14 +72,47 @@ class CuentaController extends Controller
         return ['ok' => true];
     }
 
-    /** Siempre responde lo mismo: no revela si el correo existe. */
+    /** Manda un código de 6 dígitos al correo. Siempre responde lo mismo: no revela si el correo existe. */
     public function olvido(Request $request): array
     {
-        $request->validate(['email' => ['required', 'email']]);
-        // ponytail: el enlace sale por el mailer configurado (log en la demo); la pantalla para crear la clave nueva queda pendiente
-        Password::sendResetLink($request->only('email'));
+        $email = $request->validate(['email' => ['required', 'email', 'max:120']])['email'];
+        if (User::where('email', $email)->exists()) {
+            $codigo = (string) random_int(100000, 999999);
+            RateLimiter::clear('restablecer:'.$email);
+            DB::table('password_reset_tokens')->updateOrInsert(['email' => $email], ['token' => Hash::make($codigo), 'created_at' => now()]);
+            Mail::raw("Tu código para crear una contraseña nueva en Memora es: $codigo
+
+Vence en 15 minutos. Si no lo pediste, ignora este correo.",
+                fn ($m) => $m->to($email)->subject("Tu código de Memora: $codigo"));
+        }
 
         return ['ok' => true];
+    }
+
+    public function restablecer(Request $request): array
+    {
+        $datos = $request->validate([
+            'email' => ['required', 'email', 'max:120'],
+            'codigo' => ['required', 'digits:6'],
+            'password' => ['required', 'string', 'min:8', 'max:72'],
+        ]);
+        $fila = DB::table('password_reset_tokens')->where('email', $datos['email'])->first();
+        $user = User::where('email', $datos['email'])->first();
+        if (! $fila || ! $user || now()->subMinutes(15)->gt($fila->created_at) || ! Hash::check($datos['codigo'], $fila->token)) {
+            // 5 fallos por correo (desde cualquier IP) borran el código: hay que pedir otro
+            if (RateLimiter::hit('restablecer:'.$datos['email'], 900) >= 5) {
+                DB::table('password_reset_tokens')->where('email', $datos['email'])->delete();
+            }
+            throw ValidationException::withMessages(['codigo' => 'El código no es correcto o ya venció. Pide uno nuevo.']);
+        }
+
+        RateLimiter::clear('restablecer:'.$datos['email']);
+
+        DB::table('password_reset_tokens')->where('email', $datos['email'])->delete();
+        $user->tokens()->delete(); // cierra la sesión en los otros celulares
+        $user->update(['password' => $datos['password']]);
+
+        return ['token' => $user->createToken('app')->plainTextToken, 'usuario' => $this->datos($user)];
     }
 
     public function yo(Request $request): array

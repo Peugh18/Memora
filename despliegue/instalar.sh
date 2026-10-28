@@ -80,10 +80,27 @@ MQTT_CONNECT_TIMEOUT=5
 EOF
   chmod 600 secretos/servidor.env
 fi
+# Correo para "Olvidé mi contraseña": Gmail con una contraseña de aplicación (gratis). Enter para dejarlo para después.
+if grep -q '^MAIL_MAILER=log' secretos/servidor.env; then
+  read -rp "Gmail que enviará los códigos (Enter para omitir): " GMAIL
+  if [ -n "$GMAIL" ]; then
+    read -rsp "Contraseña de aplicación de ese Gmail (16 letras): " GCLAVE; echo
+    sed -i '/^MAIL_/d' secretos/servidor.env
+    cat >> secretos/servidor.env <<EOF
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=$GMAIL
+MAIL_PASSWORD=${GCLAVE// /}
+MAIL_FROM_ADDRESS=$GMAIL
+MAIL_FROM_NAME=Memora
+EOF
+  fi
+fi
 CLAVE_MQTT=$(grep '^MQTT_AUTH_PASSWORD=' secretos/servidor.env | cut -d= -f2)
 # Usuarios del broker: el servidor y cada pastillero (usuario = su ID, clave = la del QR)
 docker run --rm -v "$PWD/secretos/mosquitto:/s" eclipse-mosquitto:2 sh -c \
-  "mosquitto_passwd -b -c /s/passwd servidor '$CLAVE_MQTT' && mosquitto_passwd -b /s/passwd MEM-0001 '$CLAVE' && chown -R 1883:1883 /s && chmod 700 /s && chmod 600 /s/passwd"
+  "rm -f /s/passwd && mosquitto_passwd -b -c /s/passwd servidor '$CLAVE_MQTT' && mosquitto_passwd -b /s/passwd MEM-0001 '$CLAVE' && chown -R 1883:1883 /s && chmod 700 /s && chmod 600 /s/passwd"
 
 paso "6/8 API (la primera vez tarda varios minutos en construir)"
 docker compose build web

@@ -62,5 +62,6 @@
 - [ ] Al terminar la presentación: terminar EC2, borrar disco, liberar IP
 
 ### Fase 6 · Entrega
-- [ ] `eas build -p android --profile preview` (el usuario hace `eas login`) → APK
+- [x] `eas build -p android --profile preview` → APK (build 74917899, 2026-10-28)
+- [x] Manual de usuario PDF (`docs/manual/`)
 - [ ] Ensayo de la demo completa
