@@ -1,11 +1,18 @@
 # Memora — Plan
 
-## Estado actual (2026-10-24)
-Pastillero probado. API Laravel con 9 pruebas pasando; el pastillero ya recibe el horario desde la API. App Expo escrita (22 pantallas), compila sin errores de tipos ni lint; falta probarla en el celular con Expo Go.
+## Estado actual (actualizado 2026-10-25)
+- **AWS y circuito principal:** servidor Laravel/Mosquitto propio instalado en EC2 us-east-2; HTTPS y MQTT/TLS verificados. En la prueba del 2026-10-24, la app Expo Go contra AWS vinculó el pastillero por QR, envió un horario y el ESP32 real sonó; el botón físico informó `tomada` y la app mostró `Tomada`. El usuario decidió dejar la EC2 encendida usando sus créditos; no detenerla sin una nueva indicación. No se volvió a comprobar la cuenta en vivo en esta revisión.
+- **App:** 22 vistas Expo SDK 58; TypeScript y lint estaban limpios. Hoy, Pastillero y Personas consultan cada 5 s y al volver a primer plano, y se actualizan tras guardar horarios. El flujo de cuidador con segundo celular y el APK EAS/Firebase Push aún no están probados/entregados.
+- **Hardware real:** ESP32 DevKit de 38 pines, DS3231, 28 posiciones (7 × mañana/mediodía/tarde/noche), caja adaptada de un joyero. Pines vigentes: buzzer 25, LED 26, botón 27, SDA 33, SCL 32 y alimentación RTC desde GPIO14. El armado actual a 3,3 V fue probado; la nueva variante de buzzer/LED a 5 V con transistores sigue pendiente de montar y verificar.
+- **Último cambio local:** commit `23b5283` en `main`, alineado con `origin/main` al revisar; actualiza la guía de armado para distribuir 5 V/GND por los rieles. La guía conserva el armado anterior y señala qué se debe retirar al cambiar a la variante con transistores.
+- **Simulación:** la conversación recomienda Wokwi para lógica/firmware ESP32 y Falstad o Tinkercad para entender el transistor. Wokwi usa un RTC DS1307 y no representa los transistores de este montaje; no se debe asumir que el circuito/firmware completo es idéntico al DS3231 real.
 
 ## Siguiente paso
-0. Probar el rol cuidador (segundo celular) y luego Fase 6: APK con EAS + Firebase para push.
-1. Probar la app en el celular (Expo Go) contra la API local. 2. Terminar la Fase 3 (botón físico → tomada; "Ya la tomé" → se calla) cuando la zona Wi-Fi esté estable.
+1. Probar el rol cuidador con un segundo celular y confirmar qué puede ver y qué no puede hacer.
+2. Probar en el sistema real la acción «Ya la tomé» desde la app mientras suena el pastillero; diferenciarla del botón «Solo apagar el sonido».
+3. Cuando estén los transistores y resistencias, montar la variante 5 V siguiendo el dibujo actualizado y probarla componente por componente.
+4. Preparar APK con EAS y configurar Firebase para probar avisos push; hoy Expo Go no los valida.
+5. Si se crea una simulación Wokwi, adaptar/validar el reloj simulado aparte; no tratar el DS1307 como sustituto probado del DS3231.
 
 ## Fases
 
@@ -13,7 +20,7 @@ Pastillero probado. API Laravel con 9 pruebas pasando; el pastillero ya recibe e
 - [x] Firmware: Wi-Fi (WiFiManager), reloj DS3231, MQTT, alarma bip-bip, botón, horario guardado
 - [x] Probado: suena sin internet, botón confirma, se reconecta solo, botón 10 s borra el Wi-Fi
 - [ ] (opcional) Cola local para enviar `tomada` cuando vuelve internet
-- [ ] (opcional) Transistor NPN para buzzer a 5 V (más fuerte)
+- [ ] Montar y verificar la variante de buzzer/LED a 5 V con transistores según `docs/armado-y-pruebas.md`.
 
 ### Fase 1 · Diseño ✅
 - [x] Marca (logo, ícono, ilustraciones) en `assets/marca/`

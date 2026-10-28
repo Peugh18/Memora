@@ -32,7 +32,7 @@ const int PIN_RTC_VCC = 14;  // el DS3231 se alimenta desde este pin: si va al 3
 // Con transistor NPN (S8050): pin 25 en ALTO = el transistor baja el I/O del buzzer = suena a 5 V. En reposo, LOW.
 // Sin transistor (buzzer directo al pin y a 3V3) era HIGH: cambiarlo de vuelta si se quita el transistor.
 const int BUZZER_APAGADO = LOW;
-int tonoHz = 2700;               // ajustar: cada buzzer suena más fuerte en una frecuencia distinta
+int tonoHz = 3500;               // ajustar: cada buzzer suena más fuerte en una frecuencia distinta
 const unsigned long ALARMA_MAX_MS = 30UL * 60 * 1000;  // igual a la tolerancia del servidor
 const unsigned long RESET_WIFI_MS = 10000;             // mantener el botón 10 s (sin alarma) borra el Wi-Fi
 

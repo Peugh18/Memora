@@ -15,3 +15,5 @@ node_modules/
 vendor/
 .expo/
 firmware/memora/secreto.h
+app/google-services.json
+*firebase-adminsdk*.json

@@ -1,5 +1,13 @@
 # Memora — Bitácora
 
+## 2026-10-25 · Contexto de Claude y estado reconciliado
+- Se identificó la carpeta activa del chat «Memora: planificación del sistema»: `D:\TiomiguelonGgs\Desktop\Memora`; `Documents\MEMORA` es otra versión (React Native 7×3) y no corresponde a esta conversación.
+- Leídos AGENTS/CLAUDE, memoria de Claude, PROYECTO/PLAN/BITACORA/DECISIONES, especificación del producto, botones, armado, firmware, app, servidor, despliegue y el historial del chat.
+- Estado más reciente confirmado en los registros: prueba app→AWS→MQTT/TLS→ESP32 real con horario, alarma y evento del botón; la app reflejó `Tomada`. La EC2 quedó encendida por decisión del usuario usando créditos; no se volvió a consultar AWS en vivo.
+- Commit local `23b5283` (25 oct, 15:07) actualiza el dibujo/guía de distribución por rieles para la variante de buzzer y LED a 5 V; el montaje con transistores aún no está verificado físicamente.
+- La respuesta de simulación recomienda Wokwi para ESP32 y Falstad/Tinkercad para el transistor; Wokwi usa DS1307 y no transistores. Mantener esa diferencia frente al montaje real con DS3231 y drivers.
+- Pendiente: segundo teléfono/cuidador, probar silenciamiento desde la app, montar/probar variante 5 V y generar APK EAS/configurar Firebase Push. No se modificó código de producto ni se corrieron pruebas en esta tarea.
+
 ## 2026-10-22 a 23 · Pastillero y diseño
 - Plan del sistema, marca (logo con cápsula en la O), 24 pantallas en el canvas de diseño.
 - Armado en protoboard componente por componente. Problemas resueltos: arranque en bucle por carga en 3V3, riel GND cortado, pulsador que rebota, Wi-Fi de 5 GHz.

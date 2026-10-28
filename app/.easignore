@@ -1,0 +1,15 @@
+# Lo que NO se sube a EAS al compilar (reemplaza a .gitignore para EAS; google-services.json SÍ se sube)
+node_modules/
+.expo/
+dist/
+web-build/
+android/
+ios/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+.env
+.env.*
+!.env.example
