@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Log;
 /** Estado de cada toma del día: pendiente → tomada u omitida. */
 class Tomas
 {
+    private const NOMBRES = ['manana' => 'la mañana', 'mediodia' => 'el mediodía', 'tarde' => 'la tarde', 'noche' => 'la noche'];
+
     public function __construct(private readonly Pastillero $pastillero) {}
 
     /** Medicamentos que tocan hoy en una franja. */
@@ -52,7 +54,15 @@ class Tomas
         User::where('es_paciente', true)->with('medications')->each(function (User $p) use ($hhmm, $hoy) {
             foreach (User::FRANJAS as $franja) {
                 if ($p->{"hora_$franja"} === $hhmm && $this->medicamentosDe($p, $franja)) {
-                    Dose::firstOrCreate(['user_id' => $p->id, 'fecha' => $hoy, 'franja' => $franja]);
+                    $dosis = Dose::firstOrCreate(['user_id' => $p->id, 'fecha' => $hoy, 'franja' => $franja]);
+                    if ($dosis->wasRecentlyCreated && $p->avisos_push && $p->expo_push_token) { // una sola vez por toma
+                        $this->enviarPush([[
+                            'to' => $p->expo_push_token,
+                            'title' => 'Hora de tus pastillas de '.self::NOMBRES[$franja],
+                            'body' => 'Tómalas y aprieta el botón del pastillero, o confirma en Memora.',
+                            'sound' => 'default',
+                        ]]);
+                    }
                 }
             }
         });
@@ -69,23 +79,27 @@ class Tomas
 
     private function avisarOmitida(Dose $d): void
     {
-        $nombres = ['manana' => 'la mañana', 'mediodia' => 'el mediodía', 'tarde' => 'la tarde', 'noche' => 'la noche'];
         $tokens = $d->user->cuidadores->where('avisos_push', true)->pluck('expo_push_token')->filter()->values();
         if ($tokens->isEmpty()) {
             return;
         }
         $mensajes = $tokens->map(fn ($t) => [
             'to' => $t,
-            'title' => "{$d->user->saludo()} no confirmó {$nombres[$d->franja]}",
+            'title' => "{$d->user->saludo()} no confirmó ".self::NOMBRES[$d->franja],
             'body' => 'Llámala o escríbele por WhatsApp desde Memora.',
             'data' => ['paciente' => $d->user_id],
             'sound' => 'default',
         ])->all();
-        // ponytail: sin reintentos; si Expo falla, el cuidador igual lo ve en "Personas que cuido"
+        $this->enviarPush($mensajes);
+    }
+
+    // ponytail: sin reintentos; si Expo falla, la toma igual se ve en la app
+    private function enviarPush(array $mensajes): void
+    {
         try {
             Http::timeout(5)->post('https://exp.host/--/api/v2/push/send', $mensajes);
         } catch (\Throwable $e) {
-            Log::warning('Push de omitida falló: '.$e->getMessage());
+            Log::warning('Push falló: '.$e->getMessage());
         }
     }
 }

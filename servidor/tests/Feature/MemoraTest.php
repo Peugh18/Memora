@@ -224,4 +224,16 @@ class MemoraTest extends TestCase
             ->postJson('/api/clave/restablecer', ['email' => 'rosa@correo.com', 'codigo' => $m[1], 'password' => 'nueva-clave-1'])
             ->assertUnprocessable();
     }
+
+    public function test_a_la_hora_de_la_toma_avisa_al_paciente_una_sola_vez(): void
+    {
+        Http::fake();
+        $this->registrar();
+        User::first()->update(['expo_push_token' => 'ExponentPushToken[rosa]']);
+
+        app(Tomas::class)->revisar(); // 18:00: toma de la tarde
+        app(Tomas::class)->revisar(); // el mismo minuto otra vez: no repite
+        Http::assertSentCount(1);
+        Http::assertSent(fn ($req) => $req[0]['to'] === 'ExponentPushToken[rosa]' && $req[0]['title'] === 'Hora de tus pastillas de la tarde');
+    }
 }

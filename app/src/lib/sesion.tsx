@@ -47,7 +47,11 @@ export function SesionProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     cargarToken()
-      .then((t) => (t ? refrescar() : undefined))
+      .then(async (t) => {
+        if (!t) return;
+        await refrescar();
+        registrarPush().catch(() => {}); // el token de avisos puede cambiar: se manda en cada inicio
+      })
       .catch(() => guardarToken(null))
       .finally(() => setCargando(false));
   }, []);

@@ -1,5 +1,9 @@
 # Memora — Bitácora
 
+## 2026-10-28 · Aviso al paciente a la hora de la toma
+- El usuario no recibía notificaciones: el diseño solo mandaba push al cuidador cuando una toma quedaba omitida; el paciente nunca recibía nada.
+- Ahora `Tomas::revisar()` manda "Hora de tus pastillas de …" al paciente cuando se abre la toma (una vez, `wasRecentlyCreated`). La app vuelve a registrar el token al abrirse (requiere APK nuevo; el actual lo registra al iniciar sesión). 14 pruebas pasan.
+
 ## 2026-10-28 · Olvidé mi contraseña
 - Fallaba: con un correo registrado la API daba 500 (`Route [password.reset] not defined`, Laravel quería armar un enlace web) y el correo estaba en `MAIL_MAILER=log`, así que nunca salía.
 - Ahora: `POST /api/clave/olvido` manda un código de 6 dígitos (guardado con hash en `password_reset_tokens`, vence en 15 min, un solo uso) y `POST /api/clave/restablecer` cambia la clave, cierra las otras sesiones y entra. Límite 5/min. Ojo: los `throttle` sin nombre comparten contador por IP.
