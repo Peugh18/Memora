@@ -28,18 +28,18 @@ a{color:#0D7385}a:hover{color:#0A4A66}
 <sc-if value="{{noEnviado}}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; flex-direction: column; gap: 10px">
 <h1 style="margin: 0; font-size: 30px; line-height: 1.12; font-weight: 800; letter-spacing: -0.8px">¿Olvidaste tu contraseña?</h1>
-<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A5F68">Escribe tu correo y te enviaremos un enlace para crear una nueva.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A5F68">Escribe tu correo y te enviaremos un código para crear una nueva.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 8px">
 <label class="lb" for="correo">Correo</label>
 <input class="in" id="correo" type="email" autocomplete="email" placeholder="tu@correo.com">
 </div>
-<button class="cta" type="button" onClick="{{enviar}}" style="margin-top: auto">Enviar enlace</button>
+<button class="cta" type="button" onClick="{{enviar}}" style="margin-top: auto">Enviar código</button>
 </sc-if>
 <sc-if value="{{enviado}}" hint-placeholder-val="{{ false }}">
 <div role="status" style="display: flex; flex-direction: column; gap: 10px">
 <h1 style="margin: 0; font-size: 30px; line-height: 1.12; font-weight: 800; letter-spacing: -0.8px">Revisa tu correo</h1>
-<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A5F68">Si tu correo está registrado, te llegará el enlace en unos minutos. Mira también en spam.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A5F68">Si tu correo está registrado, te llegará un código de 6 números. Mira también en spam.</p>
 </div>
 <a class="cta" href="Login.dc.html" style="margin-top: auto">Volver a iniciar sesión</a>
 <button type="button" onClick="{{reenviar}}" style="align-self: center; border: none; background: none; font: inherit; font-size: 16px; font-weight: 600; color: #0D7385; padding: 10px; cursor: pointer">Enviar de nuevo</button>

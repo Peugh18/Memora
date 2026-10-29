@@ -1,5 +1,10 @@
 # Memora — Bitácora
 
+## 2026-10-28 · Avisos funcionando y manual 1.1
+- Causa de que no llegaran los push: Firebase devolvía 403 `cloudmessaging.messages.create` (la cuenta `firebase-adminsdk-fbsvc` no tenía rol en el proyecto). Se le dio "Administrador de la API de Firebase Cloud Messaging" en IAM; el usuario confirmó que ya llegan. Para diagnosticar: el recibo de Expo (`/push/getReceipts`) muestra el error de FCM.
+- El usuario borró la base (`migrate:fresh`) y empezó de cero.
+- Manual 1.1: recordatorio a la hora de la toma, recuperación por código, problemas de notificaciones. Diseño de OlvideClave actualizado a "código".
+
 ## 2026-10-28 · Aviso al paciente a la hora de la toma
 - El usuario no recibía notificaciones: el diseño solo mandaba push al cuidador cuando una toma quedaba omitida; el paciente nunca recibía nada.
 - Ahora `Tomas::revisar()` manda "Hora de tus pastillas de …" al paciente cuando se abre la toma (una vez, `wasRecentlyCreated`). La app vuelve a registrar el token al abrirse (requiere APK nuevo; el actual lo registra al iniciar sesión). 14 pruebas pasan.

@@ -47,7 +47,7 @@ S.append(seccion(2, 'Instalar la app', pasos(
     'Toca <b>Descargar</b> y, al terminar, abre el archivo.',
     'Si Android pide permiso para instalar apps de fuentes desconocidas, actívalo solo para tu navegador o tu gestor de archivos.',
     'Toca <b>Instalar</b>. El ícono de Memora aparece en tu pantalla de inicio.',
-) + nota('La primera vez que abras Memora, el celular te preguntará si permites notificaciones. Acepta: así te llegan los avisos de tu familia.')))
+) + nota('La primera vez que abras Memora, el celular te preguntará si permites notificaciones. Toca <b>Permitir</b>: así te llega el recordatorio a la hora de cada toma y, si cuidas a alguien, el aviso cuando no confirma.')))
 
 S.append(seccion(3, 'Conoce tu pastillero', """
 <table>
@@ -101,6 +101,7 @@ S.append(seccion(6, 'Tu día: la pantalla Hoy', """
 <li><b>Ya la tomé</b>, en la app: apaga el sonido y marca la toma.</li>
 <li><b>Solo apagar el sonido</b>: se calla, pero la toma sigue pendiente. Confírmala cuando la tomes. Si pasan 30 minutos, tu familia recibe un aviso.</li>
 </ul>
+<p>A la misma hora te llega una notificación al celular, por ejemplo <b>Hora de tus pastillas de la tarde</b>. Llega aunque la app esté cerrada.</p>
 <p>Si te equivocaste, toca <b>Deshacer</b> y la toma vuelve a quedar pendiente.</p>
 <p>Abajo está la lista del día: <b>Tomada</b> con su hora, <b>Ahora</b>, <b>Pendiente</b> o <b>Libre</b> (sin medicamentos en ese momento).</p>
 """, [('Hoy', 'Hoy, con la alarma sonando')], salto=True))
@@ -139,7 +140,7 @@ S.append(seccion(11, 'Perfil y ajustes', """
 <ul>
 <li><b>Datos personales</b>: nombre, cómo te llamamos, celular, correo y contraseña.</li>
 <li><b>Avisar a mi familia tras</b>: tócalo para elegir 15, 30, 45 o 60 minutos.</li>
-<li><b>Avisos en el celular</b> y <b>Avisos por WhatsApp</b>: activa o apaga los avisos.</li>
+<li><b>Avisos en el celular</b>: el recordatorio a la hora de cada toma y, si cuidas a alguien, el aviso cuando no confirma. <b>Avisos por WhatsApp</b>: actívalo si prefieres ese medio.</li>
 <li><b>Cambiar el Wi-Fi del pastillero</b>: repite los pasos de la sección 5.</li>
 <li><b>Cerrar sesión</b>, al final de la pantalla.</li>
 </ul>
@@ -157,7 +158,12 @@ S.append(seccion('', '', '', [('PacienteDetalle', 'Detalle de la persona')]))
 
 S.append(seccion(13, 'Volver a entrar', """
 <p>Si cambias de celular o cerraste sesión, toca <b>Iniciar sesión</b> en la pantalla de inicio y escribe tu correo y contraseña. Tu rutina sigue guardada.</p>
-<p>Si no recuerdas la contraseña, toca <b>Olvidé mi contraseña</b>, escribe tu correo y revisa tu bandeja de entrada (y la de spam).</p>
+<p>Si no recuerdas la contraseña:</p>
+""" + pasos(
+    'Toca <b>Olvidé mi contraseña</b>, escribe tu correo y toca <b>Enviar código</b>.',
+    'Revisa tu correo (también la carpeta de spam). Te llega un mensaje de Memora con un código de 6 números.',
+    'Escribe ese código y tu contraseña nueva (mínimo 8 caracteres) y toca <b>Guardar y entrar</b>.',
+) + nota('El código vence en 15 minutos y sirve una sola vez. Si te equivocas 5 veces, pide uno nuevo después de 15 minutos. Al cambiar la contraseña se cierra tu sesión en los otros celulares.') + """
 """, [('Login', 'Iniciar sesión'), ('OlvideClave', 'Olvidé mi contraseña')], salto=True))
 
 S.append(seccion(14, 'Si algo no funciona', """
@@ -167,7 +173,9 @@ S.append(seccion(14, 'Si algo no funciona', """
 <tr><td>No aparece la red <b>Memora-MEM-0001</b></td><td>Desenchufa el pastillero y vuelve a enchufarlo. La red aparece cerca de un minuto después y dura 3 minutos.</td></tr>
 <tr><td>No sonó a la hora</td><td>Ese momento del día debe tener un medicamento para ese día. Revisa la cuadrícula en <b>Pastillero</b>.</td></tr>
 <tr><td>La app no muestra la toma como tomada</td><td>Espera unos segundos: la app se actualiza sola cada 5 segundos. Si no hay internet, confírmala con <b>Ya la tomé</b>.</td></tr>
+<tr><td>No me llegan las notificaciones</td><td>Revisa que Memora tenga permiso de notificaciones en los ajustes del celular y que <b>Avisos en el celular</b> esté activado en tu perfil. Luego cierra sesión y vuelve a entrar. Si tu celular ahorra batería, quita a Memora de esa lista.</td></tr>
 <tr><td>Mi familiar no recibe avisos</td><td>Debe tener la app instalada, haber aceptado las notificaciones y tener activado <b>Avisos en el celular</b> en su perfil.</td></tr>
+<tr><td>No me llega el código para cambiar la contraseña</td><td>Espera un minuto y revisa spam. Comprueba que escribiste el mismo correo de tu cuenta. Si pediste varios, usa solo el último.</td></tr>
 <tr><td>El QR no se lee</td><td>Toca <b>Escribir el código a mano</b> y copia el código escrito debajo del QR.</td></tr>
 </table>
 """, salto=True))
@@ -177,7 +185,7 @@ PORTADA = """<section class="portada">
 <h1>Manual de usuario</h1>
 <p class="sub">App Memora y pastillero inteligente</p>
 <img class="icono" src="../../assets/marca/icono-app.png" alt="">
-<p class="pie">Versión 1.0 · octubre de 2026</p>
+<p class="pie">Versión 1.1 · octubre de 2026</p>
 </section>"""
 
 INDICE = """<section class="indice"><h2>Contenido</h2><ol>
